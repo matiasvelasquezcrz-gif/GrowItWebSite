@@ -1909,7 +1909,7 @@ body.light .terminal-line.highlight {
     padding: 120px 0;
     position: relative;
     margin-top: 40px;
-    overflow: hidden;
+    overflow: visible;
 }
 
 #proceso::before {
@@ -1926,10 +1926,7 @@ body.light .terminal-line.highlight {
     margin: 0 auto;
     padding: 0;
     position: relative;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
 }
 
 .proceso-scroll-wrapper {
