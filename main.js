@@ -596,14 +596,17 @@ if (!isMobileCheck) {
 // ============================================
 const procesoWrapper = document.querySelector('.proceso-scroll-wrapper');
 if (procesoWrapper && window.innerWidth > 768) {
-    const totalScroll = procesoWrapper.scrollWidth - window.innerWidth;
+    const stepWidth = 360 + 32; // step width + gap
+    const visibleSteps = 1; // scroll just 1 step at a time
+    const scrollDistance = stepWidth * visibleSteps;
+    
     gsap.to(procesoWrapper, {
-        x: -totalScroll,
+        x: -scrollDistance,
         ease: 'none',
         scrollTrigger: {
             trigger: '.proceso-timeline',
-            start: 'top top',
-            end: () => '+=' + totalScroll,
+            start: 'top 80%',
+            end: () => '+=' + scrollDistance,
             pin: true,
             scrub: 1,
             anticipatePin: 1,
