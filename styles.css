@@ -1926,7 +1926,10 @@ body.light .terminal-line.highlight {
     margin: 0 auto;
     padding: 0;
     position: relative;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
 .proceso-scroll-wrapper {
