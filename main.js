@@ -1107,3 +1107,344 @@ try {
 } catch(e) {
     console.error('Three.js error:', e);
 }
+
+// ═══ HERO CINEMATIC INTRO ═══
+function initHeroIntro() {
+  const hero = document.querySelector('#inicio, #hero');
+  if (!hero) return;
+
+  const title    = hero.querySelector('h1');
+  const subtitle = hero.querySelector('p');
+  const buttons  = hero.querySelectorAll('a.btn, button, .btn-primary, .btn-secondary');
+  const chip     = hero.querySelector('.chip, .hero-chip, [class*="chip"], .label');
+  const canvas   = document.querySelector('#neural-canvas, #bg, canvas');
+
+  // Estado inicial — todo invisible y abajo
+  gsap.set([chip, title, subtitle, buttons], {
+    opacity: 0,
+    y: 45,
+    force3D: true
+  });
+
+  // Canvas empieza lejano y se acerca
+  if (canvas) {
+    gsap.set(canvas, { opacity: 0, scale: 1.15 });
+    gsap.to(canvas, {
+      opacity: 1,
+      scale: 1,
+      duration: 2.5,
+      ease: 'power2.out'
+    });
+  }
+
+  // Secuencia de entrada escalonada
+  const tl = gsap.timeline({ delay: 0.2 });
+
+  if (chip) {
+    tl.to(chip, {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      ease: 'back.out(1.5)'
+    });
+  }
+
+  if (title) {
+    tl.to(title, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out'
+    }, chip ? '-=0.3' : 0);
+  }
+
+  if (subtitle) {
+    tl.to(subtitle, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, '-=0.5');
+  }
+
+  if (buttons.length) {
+    tl.to(buttons, {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      stagger: 0.13,
+      ease: 'back.out(1.4)'
+    }, '-=0.4');
+  }
+}
+
+// ═══ HERO PORTAL — zoom in al scrollear ═══
+function initHeroPortal() {
+  const hero    = document.querySelector('#inicio, #hero');
+  const content = hero?.querySelector('.hero-content, .hero-content-inner, [class*="hero-content"]');
+  if (!hero || !content) return;
+
+  // El contenido se aleja al scrollear — efecto cinematográfico
+  gsap.to(content, {
+    scrollTrigger: {
+      trigger: hero,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 1.5
+    },
+    scale: 0.75,
+    y: -50,
+    opacity: 0,
+    ease: 'none'
+  });
+
+  // Los anillos del portal se expanden al scrollear
+  const rings = hero.querySelectorAll('.portal-ring, [class*="portal"]');
+  if (rings.length) {
+    gsap.to(rings, {
+      scrollTrigger: {
+        trigger: hero,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+      },
+      scale: 4,
+      opacity: 0,
+      ease: 'none'
+    });
+  }
+
+  // El canvas se aleja lento
+  const canvas = document.querySelector('#neural-canvas, #bg, canvas');
+  if (canvas) {
+    gsap.to(canvas, {
+      scrollTrigger: {
+        trigger: hero,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 2
+      },
+      scale: 0.85,
+      opacity: 0.4,
+      ease: 'none'
+    });
+  }
+}
+
+// ═══ PORTAL RINGS CSS — añadir al hero si no existen ═══
+function addPortalRings() {
+  const hero = document.querySelector('#inicio, #hero');
+  if (!hero || hero.querySelector('.portal-ring')) return;
+
+  const portal = document.createElement('div');
+  portal.className = 'hero-portal';
+  portal.innerHTML = `
+    <div class="portal-ring"></div>
+    <div class="portal-ring"></div>
+    <div class="portal-ring"></div>
+    <div class="portal-ring"></div>
+    <div class="portal-core"></div>
+  `;
+  hero.insertBefore(portal, hero.firstChild);
+
+  // Inyectar estilos si no existen
+  if (!document.getElementById('portal-styles')) {
+    const style = document.createElement('style');
+    style.id = 'portal-styles';
+    style.textContent = `
+      .hero-portal {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(560px, 88vw);
+        aspect-ratio: 1;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .portal-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(0,245,196,0.10);
+        animation: portalPulse 4s ease-in-out infinite;
+      }
+      .portal-ring:nth-child(2) {
+        inset: -22px;
+        border-color: rgba(108,71,255,0.07);
+        animation-delay: -1.3s;
+        animation-duration: 5.2s;
+      }
+      .portal-ring:nth-child(3) {
+        inset: -50px;
+        border-color: rgba(255,45,120,0.05);
+        animation-delay: -2.6s;
+        animation-duration: 6.8s;
+      }
+      .portal-ring:nth-child(4) {
+        inset: -85px;
+        border-color: rgba(0,245,196,0.03);
+        animation-delay: -1s;
+        animation-duration: 8s;
+      }
+      @keyframes portalPulse {
+        0%,100% { transform: scale(1); opacity: 0.5; }
+        50%      { transform: scale(1.05); opacity: 1; }
+      }
+      .portal-core {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%,-50%);
+        width: 140px; height: 140px;
+        border-radius: 50%;
+        background: radial-gradient(circle,
+          rgba(0,245,196,0.14) 0%,
+          rgba(108,71,255,0.08) 50%,
+          transparent 75%
+        );
+        filter: blur(22px);
+        animation: coreGlow 3s ease-in-out infinite;
+      }
+      @keyframes coreGlow {
+        0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.7; }
+        50%      { transform: translate(-50%,-50%) scale(1.35); opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+}
+
+// ═══ TEXTO SCRAMBLE EN EL TÍTULO ═══
+function initTextScramble() {
+  const hero  = document.querySelector('#inicio, #hero');
+  const title = hero?.querySelector('h1');
+  if (!title) return;
+
+  const chars    = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%';
+  const original = title.textContent;
+  let frame      = 0;
+  let done       = false;
+
+  const scramble = () => {
+    if (done) return;
+    title.textContent = original
+      .split('')
+      .map((char, i) => {
+        if (char === ' ') return ' ';
+        if (i < frame * 0.4) return char; // letras ya resueltas
+        return chars[Math.floor(Math.random() * chars.length)];
+      })
+      .join('');
+
+    frame++;
+    if (frame > original.length * 2.5) {
+      title.textContent = original;
+      done = true;
+    } else {
+      requestAnimationFrame(scramble);
+    }
+  };
+
+  // Disparar después de 0.8s para que sea visible
+  setTimeout(scramble, 800);
+}
+
+// ═══ SCROLL PROGRESS BAR ═══
+function initProgressBar() {
+  if (document.getElementById('scroll-progress')) return;
+
+  const bar = document.createElement('div');
+  bar.id = 'scroll-progress';
+  bar.style.cssText = `
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0%;
+    background: linear-gradient(90deg, #00f5c4, #6c47ff, #ff2d78);
+    z-index: 9999;
+    pointer-events: none;
+    transition: width 0.08s linear;
+  `;
+  document.body.appendChild(bar);
+
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY /
+      (document.body.scrollHeight - window.innerHeight) * 100;
+    bar.style.width = pct + '%';
+  }, { passive: true });
+}
+
+// ═══ CURSOR PERSONALIZADO ═══
+function initCustomCursor() {
+  // Solo desktop
+  if ('ontouchstart' in window || window.innerWidth < 768) return;
+  if (document.getElementById('cursor-dot')) return;
+
+  const dot  = document.createElement('div');
+  const ring = document.createElement('div');
+
+  dot.id  = 'cursor-dot';
+  ring.id = 'cursor-ring';
+
+  dot.style.cssText = `
+    position: fixed; width: 8px; height: 8px;
+    background: #00f5c4; border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: background 0.2s;
+    will-change: left, top;
+  `;
+  ring.style.cssText = `
+    position: fixed; width: 40px; height: 40px;
+    border: 1.5px solid rgba(108,71,255,0.6);
+    border-radius: 50%; pointer-events: none;
+    z-index: 9997; transform: translate(-50%,-50%);
+    transition: width 0.3s, height 0.3s, border-color 0.3s;
+    will-change: left, top;
+  `;
+
+  document.body.appendChild(dot);
+  document.body.appendChild(ring);
+  document.body.style.cursor = 'none';
+
+  let rx = 0, ry = 0;
+  let mx = 0, my = 0;
+
+  window.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+  });
+
+  // Ring con lag suave
+  const updateRing = () => {
+    rx += (mx - rx) * 0.1;
+    ry += (my - ry) * 0.1;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(updateRing);
+  };
+  updateRing();
+
+  // Crecer en hover
+  document.querySelectorAll('a, button, .servicio-card, .service-card, .nav-link').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width  = '60px';
+      ring.style.height = '60px';
+      ring.style.borderColor = '#00f5c4';
+      el.style.cursor = 'none';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width  = '40px';
+      ring.style.height = '40px';
+      ring.style.borderColor = 'rgba(108,71,255,0.6)';
+    });
+  });
+}
+
+// ═══ INICIALIZAR TODO ═══
+addPortalRings();
+initHeroIntro();
+initHeroPortal();
+initTextScramble();
+initProgressBar();
+initCustomCursor();
