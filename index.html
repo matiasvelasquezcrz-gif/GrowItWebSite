@@ -108,6 +108,13 @@
          HERO SECTION
          ============================================ -->
     <section id="inicio">
+        <div class="hero-portal">
+            <div class="portal-ring"></div>
+            <div class="portal-ring"></div>
+            <div class="portal-ring"></div>
+            <div class="portal-ring"></div>
+            <div class="portal-core"></div>
+        </div>
         <div class="hero-content">
             <div class="hero-content-inner">
                 <h1 class="hero-title" id="heroTitle">
@@ -155,9 +162,10 @@
     </section>
 
     <!-- ============================================
-         NOSOTROS SECTION
-         ============================================ -->
+NOSOTROS SECTION
+          ============================================ -->
     <section id="nosotros" class="section-reveal">
+        <div class="nosotros-bg-text" aria-hidden="true">IA</div>
         <div class="ambient-glow glow-cyan" style="top:-10%;left:-5%;"></div>
         <div class="ambient-glow glow-violet" style="bottom:-10%;right:-5%;"></div>
         <div class="nosotros-content" style="text-align:center; max-width:800px; margin:0 auto; padding:0 24px;">
@@ -165,6 +173,20 @@
             <p class="reveal" style="font-size:clamp(18px,1.5vw,22px); color:#cbd5e1; margin-top:24px;">
                 Acercamos la inteligencia artificial a empresas de Centroamérica. Entendemos tu contexto, tus desafíos y construimos soluciones que funcionan.
             </p>
+            <div class="nosotros-stats">
+                <div class="nosotros-stat">
+                    <span class="stat-num" data-target="50" data-suffix="+">0+</span>
+                    <span class="stat-lbl">Proyectos</span>
+                </div>
+                <div class="nosotros-stat">
+                    <span class="stat-num" data-target="98" data-suffix="%">0%</span>
+                    <span class="stat-lbl">Satisfacción</span>
+                </div>
+                <div class="nosotros-stat">
+                    <span class="stat-num" data-target="3" data-suffix="×">0×</span>
+                    <span class="stat-lbl">ROI promedio</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -229,37 +251,42 @@
     </section>
 
     <!-- ============================================
-         PROCESO SECTION
-         ============================================ -->
+PROCESO SECTION
+          ============================================ -->
     <section id="proceso">
-        <div class="section-header">
+        <div class="proceso-header section-header" style="padding: 80px 2rem 60px;">
             <h2 class="reveal" data-delay="100">Del problema a la solución en 4 pasos</h2>
-            <p class="reveal" data-delay="200">Transformamos tu negocio con inteligencia artificial en semanas, no en meses.</p>
+            <p class="reveal" data-delay="200">Transformamos tu negocio con IA en semanas, no en meses.</p>
         </div>
-        <div class="proceso-timeline">
-            <div class="proceso-scroll-wrapper">
-                <div class="timeline-steps">
-                <div class="timeline-step" data-delay="0">
-                    <div class="step-node">01</div>
-                    <h3>Diagnóstico</h3>
-                    <p>Analizamos tu empresa, procesos actuales y encontramos dónde la IA genera más valor. Identificamos oportunidades de automatización y optimización.</p>
+
+        <div class="proceso-outer">
+            <div class="proceso-sticky" id="procesoSticky">
+                <div class="proceso-track" id="procesoTrack">
+                    <!-- PASO 1 -->
+                    <div class="timeline-step">
+                        <div class="step-node">01</div>
+                        <h3>Diagnóstico</h3>
+                        <p>Analizamos tu empresa, procesos actuales y encontramos dónde la IA genera más valor. Identificamos oportunidades de automatización y optimización.</p>
+                    </div>
+                    <!-- PASO 2 -->
+                    <div class="timeline-step">
+                        <div class="step-node" style="border-color:var(--violet);color:var(--violet);">02</div>
+                        <h3>Estrategia IA</h3>
+                        <p>Diseñamos la solución técnica a medida, el plan de implementación y definimos los KPIs de éxito. Presentamos el roadmap completo.</p>
+                    </div>
+                    <!-- PASO 3 -->
+                    <div class="timeline-step">
+                        <div class="step-node" style="border-color:var(--magenta);color:var(--magenta);">03</div>
+                        <h3>Desarrollo</h3>
+                        <p>Construimos e integramos la solución con metodología ágil. Entregamos resultados funcionales cada semana para tu validación.</p>
+                    </div>
+                    <!-- PASO 4 -->
+                    <div class="timeline-step">
+                        <div class="step-node" style="border-color:#00ff88;color:#00ff88;">04</div>
+                        <h3>Lanzamiento</h3>
+                        <p>Desplegamos en producción, capacitamos a tu equipo y brindamos soporte continuo 24/7. Monitoreamos el rendimiento y optimizamos.</p>
+                    </div>
                 </div>
-                <div class="timeline-step" data-delay="200">
-                    <div class="step-node">02</div>
-                    <h3>Estrategia IA</h3>
-                    <p>Diseñamos la solución técnica a medida, el plan de implementación y definimos los KPIs de éxito. Presentamos el roadmap completo.</p>
-                </div>
-                <div class="timeline-step" data-delay="400">
-                    <div class="step-node">03</div>
-                    <h3>Desarrollo</h3>
-                    <p>Construimos e integramos la solución con metodología ágil. Entregamos resultados funcionales cada semana para tu validación.</p>
-                </div>
-                <div class="timeline-step" data-delay="600">
-                    <div class="step-node">04</div>
-                    <h3>Lanzamiento</h3>
-                    <p>Desplegamos en producción, capacitamos a tu equipo y brindamos soporte continuo 24/7. Monitoreamos el rendimiento y optimizamos.</p>
-                </div>
-            </div>
             </div>
         </div>
     </section>

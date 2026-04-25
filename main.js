@@ -400,32 +400,48 @@ document.querySelectorAll('section').forEach(section => {
     );
 });
 
-// Service cards spiral from left
-document.querySelectorAll('.servicio-card').forEach((card, i) => {
-    gsap.fromTo(card,
-        { opacity: 0, x: -300, rotation: -180 + (i * 30), scale: 0.5 },
-        { opacity: 1, x: 0, rotation: 0, scale: 1, duration: 1.2,
-          ease: 'power3.out', delay: i * 0.15,
-          scrollTrigger: { trigger: '#servicios', start: 'top 70%', once: true }
-        }
-    );
+// Burbujas de servicios
+gsap.utils.toArray('.servicio-card').forEach((card, i) => {
+    gsap.to(card, {
+        scrollTrigger: {
+            trigger: card,
+            start: 'top 88%',
+            toggleActions: 'play none none reverse'
+        },
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        delay: i * 0.11,
+        ease: 'back.out(1.5)'
+    });
+
+    // Flotación continua después de aparecer
+    gsap.to(card, {
+        y: -10,
+        duration: 2.2 + i * 0.28,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+        delay: 0.8 + i * 0.35
+    });
 });
 
-// Beneficio cards from different directions
-gsap.fromTo('.beneficio-card',
-    { opacity: 0, y: 50 },
-    { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.1,
-      scrollTrigger: { trigger: '#beneficios', start: 'top 75%', once: true }
-    }
-);
+// Beneficio cards — COMMENTED OUT (sección no existe en HTML)
+// gsap.fromTo('.beneficio-card',
+//     { opacity: 0, y: 50 },
+//     { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.1,
+//       scrollTrigger: { trigger: '#beneficios', start: 'top 75%', once: true }
+//     }
+// );
 
-// Tech items
-gsap.fromTo('.tech-item',
-    { opacity: 0, scale: 0.8 },
-    { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.7)', stagger: 0.06,
-      scrollTrigger: { trigger: '#tecnologias', start: 'top 75%', once: true }
-    }
-);
+// Tech items — COMMENTED OUT (sección no existe en HTML)
+// gsap.fromTo('.tech-item',
+//     { opacity: 0, scale: 0.8 },
+//     { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.7)', stagger: 0.06,
+//       scrollTrigger: { trigger: '#tecnologias', start: 'top 75%', once: true }
+//     }
+// );
 
 // Contacto
 gsap.fromTo('.contacto-info-box',
@@ -537,20 +553,19 @@ document.querySelectorAll('.stat-item').forEach((item, i) => {
 });
 
 // ============================================
-// TERMINAL TYPING — GSAP ScrollTrigger
+// TERMINAL TYPING — COMMENTED OUT (elemento no existe en HTML)
 // ============================================
-const terminalLines = document.querySelectorAll('.terminal-line');
-
-ScrollTrigger.create({
-    trigger: '#terminal',
-    start: 'top 80%',
-    once: true,
-    onEnter: () => {
-        terminalLines.forEach((line, index) => {
-            setTimeout(() => line.classList.add('visible'), parseInt(line.dataset.delay) || index * 400);
-        });
-    }
-});
+// const terminalLines = document.querySelectorAll('.terminal-line');
+// ScrollTrigger.create({
+//     trigger: '#terminal',
+//     start: 'top 80%',
+//     once: true,
+//     onEnter: () => {
+//         terminalLines.forEach((line, index) => {
+//             setTimeout(() => line.classList.add('visible'), parseInt(line.dataset.delay) || index * 400);
+//         });
+//     }
+// });
 
 // ============================================
 // SERVICIOS CARDS TILT + DYNAMIC GLOW
@@ -592,26 +607,88 @@ if (!isMobileCheck) {
 }
 
 // ============================================
-// TIMELINE — GSAP HORIZONTAL SCROLL PIN
+// PROCESO — HORIZONTAL SCROLL CINEMATOGRÁFICO
 // ============================================
-const procesoWrapper = document.querySelector('.proceso-scroll-wrapper');
-if (procesoWrapper && window.innerWidth > 768) {
-    const stepWidth = 360 + 32; // step width + gap
-    const visibleSteps = 1; // scroll just 1 step at a time
-    const scrollDistance = stepWidth * visibleSteps;
-    
-    gsap.to(procesoWrapper, {
-        x: -scrollDistance,
-        ease: 'none',
+const procesoTrack = document.getElementById('procesoTrack');
+if (procesoTrack && window.innerWidth > 768) {
+    const steps = gsap.utils.toArray('.timeline-step');
+
+    // Calcular el ancho total a desplazar
+    const getScrollAmount = () => -(procesoTrack.scrollWidth - window.innerWidth + 80);
+
+    // Mover el track horizontalmente mientras el outer scrollea
+    const tl = gsap.timeline({
         scrollTrigger: {
-            trigger: '.proceso-timeline',
-            start: 'top 80%',
-            end: () => '+=' + scrollDistance,
-            pin: true,
-            scrub: 1,
+            trigger: '.proceso-outer',
+            start: 'top top',
+            end: () => '+=' + (procesoTrack.scrollWidth - window.innerWidth + 80),
+            scrub: 1.2,
+            pin: '.proceso-sticky',
             anticipatePin: 1,
             invalidateOnRefresh: true
         }
+    });
+
+    tl.to(procesoTrack, {
+        x: getScrollAmount,
+        ease: 'none'
+    });
+
+    // Cada step aparece conforme entra desde la derecha
+    steps.forEach((step, i) => {
+        const progress = i / steps.length;
+        ScrollTrigger.create({
+            trigger: '.proceso-outer',
+            start: 'top top',
+            end: () => '+=' + (procesoTrack.scrollWidth - window.innerWidth + 80),
+            onUpdate: (self) => {
+                if (self.progress > progress - 0.05 && self.progress < progress + 0.45) {
+                    gsap.to(step, { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+                }
+            }
+        });
+    });
+}
+
+// Mobile — reveal normal
+if (window.innerWidth <= 768) {
+    gsap.utils.toArray('.timeline-step').forEach((step, i) => {
+        gsap.fromTo(step,
+            { opacity: 0, y: 40 },
+            {
+                scrollTrigger: { trigger: step, start: 'top 85%' },
+                opacity: 1, y: 0, duration: 0.7, delay: i * 0.15, ease: 'power2.out'
+            }
+        );
+    });
+}
+
+// ============================================
+// COUNTERS EN NOSOTROS
+// ============================================
+const nosotrosObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('.stat-num[data-target]').forEach(el => {
+            const target = parseInt(el.dataset.target);
+            const suffix = el.dataset.suffix || '';
+            const start = Date.now();
+            const duration = 1600;
+            const tick = () => {
+                const elapsed = Date.now() - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(target * eased) + suffix;
+                if (progress < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+        });
+        nosotrosObserver.unobserve(entry.target);
+    });
+}, { threshold: 0.4 });
+
+const nosotrosStats = document.querySelector('.nosotros-stats');
+if (nosotrosStats) nosotrosObserver.observe(nosotrosStats.closest('section'));
     });
     // Stagger step cards as they scroll in
     gsap.fromTo('.timeline-step',
@@ -655,6 +732,32 @@ gsap.to('.hero-content', {
 gsap.to('.hero-scroll', {
     y: 60, opacity: 0, ease: 'none',
     scrollTrigger: { trigger: '#inicio', start: 'top top', end: '40% top', scrub: true }
+});
+
+// Hero — efecto cinematográfico al scrollear
+gsap.to('#inicio .hero-content-inner', {
+    scrollTrigger: {
+        trigger: '#inicio',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.5
+    },
+    scale: 0.72,
+    y: -55,
+    opacity: 0,
+    ease: 'none'
+});
+
+gsap.to('.hero-portal', {
+    scrollTrigger: {
+        trigger: '#inicio',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+    },
+    scale: 4,
+    opacity: 0,
+    ease: 'none'
 });
 
 // ============================================
