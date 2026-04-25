@@ -173,35 +173,35 @@ function applyTranslations() {
     procesoSteps[6].textContent = t.proceso.step4;
     procesoSteps[7].textContent = t.proceso.step4d;
     
-    // Beneficios
-    document.querySelectorAll('.section-title')[3].textContent = t.beneficios.title;
-    document.querySelectorAll('#beneficios .section-subtitle')[0].textContent = t.beneficios.subtitle;
-    const beneficioHeaders = document.querySelectorAll('#beneficios h2');
-    if(beneficioHeaders[0]) beneficioHeaders[0].innerHTML = t.beneficios.headerTitle;
-    const beneficioCards = document.querySelectorAll('.beneficio-card h3, .beneficio-card p');
-    beneficioCards[0].textContent = t.beneficios.b1t;
-    beneficioCards[1].textContent = t.beneficios.b1d;
-    beneficioCards[2].textContent = t.beneficios.b2t;
-    beneficioCards[3].textContent = t.beneficios.b2d;
-    beneficioCards[4].textContent = t.beneficios.b3t;
-    beneficioCards[5].textContent = t.beneficios.b3d;
-    beneficioCards[6].textContent = t.beneficios.b4t;
-    beneficioCards[7].textContent = t.beneficios.b4d;
+    // Beneficios — COMMENTED OUT (sección no existe)
+    // document.querySelectorAll('.section-title')[3].textContent = t.beneficios.title;
+    // document.querySelectorAll('#beneficios .section-subtitle')[0].textContent = t.beneficios.subtitle;
+    // const beneficioHeaders = document.querySelectorAll('#beneficios h2');
+    // if(beneficioHeaders[0]) beneficioHeaders[0].innerHTML = t.beneficios.headerTitle;
+    // const beneficioCards = document.querySelectorAll('.beneficio-card h3, .beneficio-card p');
+    // if(beneficioCards[0]) beneficioCards[0].textContent = t.beneficios.b1t;
+    // if(beneficioCards[1]) beneficioCards[1].textContent = t.beneficios.b1d;
+    // if(beneficioCards[2]) beneficioCards[2].textContent = t.beneficios.b2t;
+    // if(beneficioCards[3]) beneficioCards[3].textContent = t.beneficios.b2d;
+    // if(beneficioCards[4]) beneficioCards[4].textContent = t.beneficios.b3t;
+    // if(beneficioCards[5]) beneficioCards[5].textContent = t.beneficios.b3d;
+    // if(beneficioCards[6]) beneficioCards[6].textContent = t.beneficios.b4t;
+    // if(beneficioCards[7]) beneficioCards[7].textContent = t.beneficios.b4d;
     
-    // Tecnologias
-    document.querySelectorAll('.section-title')[4].textContent = t.tecnologias.title;
-    document.querySelectorAll('#tecnologias .section-subtitle')[0].textContent = t.tecnologias.subtitle;
-    const techHeaders = document.querySelectorAll('#tecnologias h2');
-    if(techHeaders[0]) techHeaders[0].innerHTML = t.tecnologias.headerTitle;
-    const techItems = document.querySelectorAll('#tecnologias .tech-item');
-    if(techItems[0]) techItems[0].textContent = t.tecnologias.tech1;
-    if(techItems[1]) techItems[1].textContent = t.tecnologias.tech2;
-    if(techItems[2]) techItems[2].textContent = t.tecnologias.tech3;
-    if(techItems[3]) techItems[3].textContent = t.tecnologias.tech4;
-    if(techItems[4]) techItems[4].textContent = t.tecnologias.tech5;
-    if(techItems[5]) techItems[5].textContent = t.tecnologias.tech6;
-    if(techItems[6]) techItems[6].textContent = t.tecnologias.tech7;
-    if(techItems[7]) techItems[7].textContent = t.tecnologias.tech8;
+    // Tecnologias — COMMENTED OUT (sección no existe)
+    // document.querySelectorAll('.section-title')[4].textContent = t.tecnologias.title;
+    // document.querySelectorAll('#tecnologias .section-subtitle')[0].textContent = t.tecnologias.subtitle;
+    // const techHeaders = document.querySelectorAll('#tecnologias h2');
+    // if(techHeaders[0]) techHeaders[0].innerHTML = t.tecnologias.headerTitle;
+    // const techItems = document.querySelectorAll('#tecnologias .tech-item');
+    // if(techItems[0]) techItems[0].textContent = t.tecnologias.tech1;
+    // if(techItems[1]) techItems[1].textContent = t.tecnologias.tech2;
+    // if(techItems[2]) techItems[2].textContent = t.tecnologias.tech3;
+    // if(techItems[3]) techItems[3].textContent = t.tecnologias.tech4;
+    // if(techItems[4]) techItems[4].textContent = t.tecnologias.tech5;
+    // if(techItems[5]) techItems[5].textContent = t.tecnologias.tech6;
+    // if(techItems[6]) techItems[6].textContent = t.tecnologias.tech7;
+    // if(techItems[7]) techItems[7].textContent = t.tecnologias.tech8;
     
     // Contacto
     document.querySelectorAll('.section-title')[5].textContent = t.contacto.title;
@@ -473,7 +473,7 @@ document.querySelectorAll('.section-reveal').forEach(section => {
         }
     });
     // Fade out content when leaving viewport (not the section itself)
-    const inner = section.querySelector('.section-header, .nosotros-grid, .servicios-grid, .contacto-wrapper, .beneficios-grid, .tecnologias-grid');
+    const inner = section.querySelector('.section-header, .nosotros-grid, .servicios-grid, .contacto-wrapper');
     if (inner) {
         gsap.to(inner, {
             opacity: 0, y: -40, ease: 'none',
