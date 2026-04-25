@@ -2,6 +2,44 @@
 // MAIN.JS — GrowIt Website
 // ============================================
 
+// ═══ HERO CINEMATIC INTRO ═══
+function initHeroIntro() {
+  const hero = document.querySelector('#inicio, #hero');
+  if (!hero) return;
+
+  const title    = hero.querySelector('h1');
+  const subtitle = hero.querySelector('p');
+  const buttons  = hero.querySelectorAll('a, button');
+  const chip     = hero.querySelector('.chip, .hero-chip, [class*="chip"]');
+
+  // Estado inicial — todo invisible
+  gsap.set([chip, title, subtitle, buttons], { 
+    opacity: 0, y: 40 
+  });
+
+  // Secuencia de entrada escalonada
+  const tl = gsap.timeline({ delay: 0.3 });
+
+  if (chip) tl.to(chip, { 
+    opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.4)' 
+  });
+
+  if (title) tl.to(title, { 
+    opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' 
+  }, '-=0.3');
+
+  if (subtitle) tl.to(subtitle, { 
+    opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' 
+  }, '-=0.5');
+
+  if (buttons.length) tl.to(buttons, { 
+    opacity: 1, y: 0, duration: 0.6, 
+    stagger: 0.12, ease: 'back.out(1.3)' 
+  }, '-=0.4');
+}
+
+initHeroIntro();
+
 function closeMobileMenu() {
     document.getElementById('mobileOverlay').classList.remove('active');
     document.getElementById('hamburger').classList.remove('active');
