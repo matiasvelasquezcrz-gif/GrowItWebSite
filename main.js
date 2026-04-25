@@ -689,8 +689,8 @@ const nosotrosObserver = new IntersectionObserver(entries => {
 
 const nosotrosStats = document.querySelector('.nosotros-stats');
 if (nosotrosStats) nosotrosObserver.observe(nosotrosStats.closest('section'));
-    });
-    // Stagger step cards as they scroll in
+
+// Stagger step cards as they scroll in
     gsap.fromTo('.timeline-step',
         { opacity: 0, y: 40 },
         { opacity: 1, y: 0, duration: 0.5, stagger: 0.2,
