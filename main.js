@@ -2,12 +2,16 @@
 // MAIN.JS — GrowIt Website
 // ============================================
 
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // ═══ TRANSLATIONS ═══
     const translations = {
         es: {
             nav: { inicio: 'Inicio', nosotros: 'Nosotros', servicios: 'Servicios', proceso: 'Proceso', contacto: 'Contacto', hablemos: 'Hablemos →' },
-            hero: { subtitle: 'Automatizamos procesos, modernizamos sistemas y construimos productos digitales inteligentes para empresas que veulent liderar su industria.', btn1: 'Ver servicios →', btn2: 'Conocer más', scroll: 'SCROLL' }
+            hero: { subtitle: 'Automatizamos procesos, modernizamos sistemas y construimos productos digitales inteligentes para empresas que quieren liderar su industria.', btn1: 'Ver servicios →', btn2: 'Conocer más', scroll: 'SCROLL' }
         },
         en: {
             nav: { inicio: 'Home', nosotros: 'About', servicios: 'Services', proceso: 'Process', contacto: 'Contact', hablemos: "Let's Talk →" },
@@ -115,8 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('GSAP not loaded - showing content without animations');
         return;
     }
-    
-    gsap.registerPlugin(ScrollTrigger);
     
     // ── HERO INTRO ANIMATION ──
     const heroTitle = document.querySelector('.hero-title');
