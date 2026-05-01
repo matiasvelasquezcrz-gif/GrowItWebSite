@@ -1,37 +1,22 @@
-/* Updated: 2026-04-25 */
 :root {
     --cyan: #00f5c4;
     --violet: #6c47ff;
-    --mageta: #ff2d78;
+    --magenta: #ff2d78;
     --text-primary: #f1f5f9;
     --text-secondary: #94a3b8;
-    --surface-glass: rgba(255, 255, 255, 0.08);
-    --border-subtle: rgba(255, 255, 255, 0.12);
-    --border-active: rgba(0, 245, 196, 0.3);
-    --glow-cyan: rgba(0, 245, 196, 0.15);
-    --glow-violet: rgba(108, 71, 255, 0.15);
+    --surface-glass: rgba(255,255,255,0.08);
+    --border-subtle: rgba(255,255,255,0.12);
+    --border-active: rgba(0,245,196,0.3);
+    --glow-cyan: rgba(0,245,196,0.15);
+    --glow-violet: rgba(108,71,255,0.15);
     --bg-base: #0c1022;
 }
-
-/* Always visible - GSAP will animate if loaded */
-.hero-title, .hero-subtitle, .hero-buttons, .hero-scroll, .hero-portal, .hero-content-inner { opacity: 1 !important; }
-section { opacity: 1 !important; }
-.servicio-card, .timeline-step { opacity: 1 !important; transform: none !important; }
-.stat-number, .stat-num { opacity: 1 !important; }
 
 *, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
-/* Always show content - JS will animate if it works */
-.hero-title, .hero-subtitle, .hero-buttons, .hero-scroll, .hero-portal { opacity: 1 !important; }
-.hero-portal { transform: none !important; }
-.servicio-card { opacity: 1 !important; transform: none !important; }
-.stat-number { opacity: 1 !important; }
-#servicios, #nosotros, #contacto, #proceso { opacity: 1 !important; }
-#nosotros h2, #servicios h2, #proceso h2, #contacto h2 { opacity: 1 !important; transform: none !important; }
 
 html {
     scroll-behavior: smooth;
@@ -191,14 +176,29 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1;
+    z-index: 0;
     pointer-events: none;
     background: #0c1022;
 }
 
-/* Always visible */
-.reveal { opacity: 1 !important; transform: none !important; }
-.section-header .reveal { display: block; width: 100%; }
+/* ============================================
+  REVEAL ANIMATIONS
+  ============================================ */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-header .reveal {
+    display: block;
+    width: 100%;
+}
 
 /* ============================================
  TYPOGRAPHY
@@ -1174,29 +1174,14 @@ header.scrolled {
 }
 
 /* ============================================
-HERO SECTION
-  ============================================ */
+ HERO SECTION
+ ============================================ */
 #inicio {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 100px 24px 100px;
-    position: relative;
-    overflow: hidden;
-}
-
-#inicio::before {
-    content: '';
-    position: absolute;
-    top: -20%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(ellipse, rgba(0,245,196,0.06) 0%, rgba(108,71,255,0.04) 40%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
 }
 
 .hero-content {
@@ -1825,8 +1810,6 @@ body.light .terminal-line.highlight {
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
     transform-style: preserve-3d;
-    opacity: 0;
-    transform: translateY(70px) scale(0.88);
 }
 
 .servicio-card::before {
@@ -1920,98 +1903,124 @@ body.light .terminal-line.highlight {
 }
 
 /* ============================================
-PROCESO SECTION
-  ============================================ */
+ PROCESO SECTION
+ ============================================ */
 #proceso {
-    padding: 0;
-}
-
-.proceso-outer {
-    height: 400vh;
+    padding: 120px 0;
     position: relative;
-}
-
-.proceso-sticky {
-    position: sticky;
-    top: 0;
-    height: 100vh;
+    margin-top: 40px;
     overflow: hidden;
-    display: flex;
-    align-items: center;
 }
 
-.proceso-track {
+#proceso::before {
+    display: none;
+}
+
+#proceso > * {
+    position: relative;
+    z-index: 1;
+}
+
+.proceso-timeline {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.proceso-scroll-wrapper {
     display: flex;
-    flex-direction: row;
+    align-items: stretch;
     gap: 32px;
-    padding: 0 10vw;
+    padding: 0 60px;
     width: max-content;
-    will-change: transform;
-    align-items: center;
+}
+
+.timeline-line {
+    display: none;
+}
+
+.timeline-steps {
+    display: flex;
+    gap: 32px;
 }
 
 .timeline-step {
-    width: clamp(300px, 35vw, 420px);
-    flex-shrink: 0;
-    background: rgba(13, 18, 38, 0.88);
-    backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 20px;
-    padding: 40px 36px;
-    opacity: 0;
-    transform: translateX(50px);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 16px 48px rgba(0, 0, 0, 0.3);
+    min-width: 320px;
+    max-width: 360px;
+    text-align: left;
+    opacity: 1;
+    padding: 40px 32px;
+    background: rgba(8, 10, 28, 0.45) !important;
+    backdrop-filter: blur(12px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(140%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+    border-radius: 20px !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 12px 40px rgba(0,0,0,0.35);
+    transition: all 0.7s cubic-bezier(0.16,1,0.3,1);
 }
 
-.timeline-step .step-node {
-    width: 56px;
-    height: 56px;
+.timeline-step:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0, 245, 196, 0.2) !important;
+    box-shadow: 0 0 40px rgba(0, 245, 196, 0.12), inset 0 1px 0 rgba(255,255,255,0.12), 0 20px 50px rgba(0,0,0,0.4);
+}
+
+.timeline-step.from-bottom {
+    transform: translateY(50px);
+}
+.timeline-step.from-left {
+    transform: translateX(-50px);
+}
+.timeline-step.from-right {
+    transform: translateX(50px);
+}
+.timeline-step.from-front {
+    transform: translateZ(-80px);
+    transform-style: preserve-3d;
+    perspective: 800px;
+}
+
+.timeline-step.revealed {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+.step-node {
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
-    border: 2px solid var(--cyan);
-    color: var(--cyan);
+    background: rgba(8, 10, 28, 0.88) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 2.5px solid var(--cyan);
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 0 24px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-    margin-bottom: 24px;
-    background: rgba(0, 245, 196, 0.06);
-}
-
-.timeline-step h3 {
-    font-family: var(--font-display);
-    font-size: clamp(20px, 2vw, 26px);
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: var(--text-primary);
-}
-
-.timeline-step p {
-    color: var(--text-secondary);
+    font-weight: 600;
     font-size: 15px;
-    line-height: 1.7;
+    box-shadow: 0 0 30px rgba(0, 245, 196, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 8px 32px rgba(0,0,0,0.3);
+    opacity: 1;
+    transform: scale(1);
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@media (max-width: 768px) {
-    .proceso-outer {
-        height: auto;
-    }
-    .proceso-sticky {
-        position: relative;
-        height: auto;
-        overflow: visible;
-    }
-    .proceso-track {
-        flex-direction: column;
-        width: 100%;
-        padding: 0 20px 60px;
-    }
-    .timeline-step {
-        width: 100%;
-        opacity: 1;
-        transform: none;
-    }
+.step-node:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 50px rgba(0, 245, 196, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 12px 40px rgba(0,0,0,0.4);
+}
+
+.step-node.revealed {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.timeline-step.revealed .step-node {
+    box-shadow: 0 0 45px rgba(0, 245, 196, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 10px 40px rgba(0,0,0,0.35);
 }
 
 .timeline-step:nth-child(2).revealed .step-node {
@@ -2680,145 +2689,4 @@ footer {
 .whatsapp-float:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 30px rgba(37,211,102,0.6);
-}
-
-/* ============================================
- HERO PORTAL EFFECT
- ============================================ */
-.hero-portal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(560px, 88vw);
-    aspect-ratio: 1;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.portal-ring {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 1px solid rgba(0,245,196,0.10);
-    animation: portalPulse 4s ease-in-out infinite;
-}
-
-.portal-ring:nth-child(2) {
-    inset: -22px;
-    border-color: rgba(108,71,255,0.07);
-    animation-delay: -1.3s;
-    animation-duration: 5.2s;
-}
-
-.portal-ring:nth-child(3) {
-    inset: -50px;
-    border-color: rgba(255,45,120,0.05);
-    animation-delay: -2.6s;
-    animation-duration: 6.8s;
-}
-
-.portal-ring:nth-child(4) {
-    inset: -85px;
-    border-color: rgba(0,245,196,0.03);
-    animation-delay: -1s;
-    animation-duration: 8s;
-}
-
-@keyframes portalPulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 0.5;
-    }
-    50% {
-        transform: scale(1.05);
-        opacity: 1;
-    }
-}
-
-.portal-core {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,245,196,0.16) 0%, rgba(108,71,255,0.09) 50%, transparent 75%);
-    filter: blur(22px);
-    animation: coreGlow 3s ease-in-out infinite;
-}
-
-@keyframes coreGlow {
-    0%, 100% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0.7;
-    }
-    50% {
-        transform: translate(-50%, -50%) scale(1.35);
-        opacity: 1;
-    }
-}
-
-.hero-content-inner {
-    will-change: transform, opacity;
-}
-
-/* ============================================
- NOSOTROS SECTION / STATS
- ============================================ */
-#nosotros {
-    position: relative;
-    overflow: hidden;
-}
-
-.nosotros-bg-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--font-display);
-    font-size: clamp(160px, 28vw, 320px);
-    font-weight: 800;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.035);
-    white-space: nowrap;
-    pointer-events: none;
-    z-index: 0;
-    user-select: none;
-    letter-spacing: -0.04em;
-}
-
-.nosotros-stats {
-    display: flex;
-    gap: 48px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 52px;
-    position: relative;
-    z-index: 1;
-}
-
-.nosotros-stat {
-    text-align: center;
-}
-
-.stat-num {
-    display: block;
-    font-family: var(--font-display);
-    font-size: clamp(52px, 7vw, 88px);
-    font-weight: 800;
-    background: linear-gradient(90deg, var(--cyan), var(--violet));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1;
-}
-
-.stat-lbl {
-    display: block;
-    color: var(--text-secondary);
-    font-size: 13px;
-    margin-top: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
 }

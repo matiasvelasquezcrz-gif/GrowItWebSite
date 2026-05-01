@@ -21,7 +21,7 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Grow IT — Inteligencia Artificial para empresas | Centroamérica">
-    <meta name="twitter:description" content="Transformamos empresas con IA. Desarrollo de software a medida, automatización de procesos y productos digitales inteligentes en Centroamérica.">
+    <meta name="twitter:description" content="Transformamos empresas con IA. Desarrollo de software a medida, automatización de procesos y productos digitales inteligentes.">
 
     <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -39,17 +39,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="styles.css?v=8">
+    <link rel="stylesheet" href="styles.css?v=7">
+
+    <!-- Main JS -->
+    <script src="main.js?v=10" defer></script>
 </head>
 <body>
 <!-- ============================================
-      SCROLL PROGRESS
-      ============================================ -->
+          SCROLL PROGRESS
+          ============================================ -->
     <div id="scroll-progress"></div>
 
     <!-- ============================================
-      NEURAL CANVAS 3D BACKGROUND
-      ============================================ -->
+          NEURAL CANVAS 3D BACKGROUND
+          ============================================ -->
     <canvas id="neural-canvas"></canvas>
 
     <!-- Floating Particles -->
@@ -105,13 +108,6 @@
          HERO SECTION
          ============================================ -->
     <section id="inicio">
-        <div class="hero-portal">
-            <div class="portal-ring"></div>
-            <div class="portal-ring"></div>
-            <div class="portal-ring"></div>
-            <div class="portal-ring"></div>
-            <div class="portal-core"></div>
-        </div>
         <div class="hero-content">
             <div class="hero-content-inner">
                 <h1 class="hero-title" id="heroTitle">
@@ -159,10 +155,9 @@
     </section>
 
     <!-- ============================================
- NOSOTROS SECTION
-      ============================================ -->
+         NOSOTROS SECTION
+         ============================================ -->
     <section id="nosotros" class="section-reveal">
-        <div class="nosotros-bg-text" aria-hidden="true">IA</div>
         <div class="ambient-glow glow-cyan" style="top:-10%;left:-5%;"></div>
         <div class="ambient-glow glow-violet" style="bottom:-10%;right:-5%;"></div>
         <div class="nosotros-content" style="text-align:center; max-width:800px; margin:0 auto; padding:0 24px;">
@@ -170,20 +165,6 @@
             <p class="reveal" style="font-size:clamp(18px,1.5vw,22px); color:#cbd5e1; margin-top:24px;">
                 Acercamos la inteligencia artificial a empresas de Centroamérica. Entendemos tu contexto, tus desafíos y construimos soluciones que funcionan.
             </p>
-            <div class="nosotros-stats">
-                <div class="nosotros-stat">
-                    <span class="stat-num" data-target="50" data-suffix="+">0+</span>
-                    <span class="stat-lbl">Proyectos</span>
-                </div>
-                <div class="nosotros-stat">
-                    <span class="stat-num" data-target="98" data-suffix="%">0%</span>
-                    <span class="stat-lbl">Satisfacción</span>
-                </div>
-                <div class="nosotros-stat">
-                    <span class="stat-num" data-target="3" data-suffix="×">0×</span>
-                    <span class="stat-lbl">ROI promedio</span>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -248,42 +229,37 @@
     </section>
 
     <!-- ============================================
- PROCESO SECTION
-      ============================================ -->
+         PROCESO SECTION
+         ============================================ -->
     <section id="proceso">
-        <div class="proceso-header section-header" style="padding: 80px 2rem 60px;">
+        <div class="section-header">
             <h2 class="reveal" data-delay="100">Del problema a la solución en 4 pasos</h2>
-            <p class="reveal" data-delay="200">Transformamos tu negocio con IA en semanas, no en meses.</p>
+            <p class="reveal" data-delay="200">Transformamos tu negocio con inteligencia artificial en semanas, no en meses.</p>
         </div>
-
-        <div class="proceso-outer">
-            <div class="proceso-sticky" id="procesoSticky">
-                <div class="proceso-track" id="procesoTrack">
-                    <!-- PASO 1 -->
-                    <div class="timeline-step">
-                        <div class="step-node">01</div>
-                        <h3>Diagnóstico</h3>
-                        <p>Analizamos tu empresa, procesos actuales y encontramos dónde la IA genera más valor. Identificamos oportunidades de automatización y optimización.</p>
-                    </div>
-                    <!-- PASO 2 -->
-                    <div class="timeline-step">
-                        <div class="step-node" style="border-color:var(--violet);color:var(--violet);">02</div>
-                        <h3>Estrategia IA</h3>
-                        <p>Diseñamos la solución técnica a medida, el plan de implementación y definimos los KPIs de éxito. Presentamos el roadmap completo.</p>
-                    </div>
-                    <!-- PASO 3 -->
-                    <div class="timeline-step">
-                        <div class="step-node" style="border-color:var(--magenta);color:var(--magenta);">03</div>
-                        <h3>Desarrollo</h3>
-                        <p>Construimos e integramos la solución con metodología ágil. Entregamos resultados funcionales cada semana para tu validación.</p>
-                    </div>
-                    <!-- PASO 4 -->
-                    <div class="timeline-step">
-                        <div class="step-node" style="border-color:#00ff88;color:#00ff88;">04</div>
-                        <h3>Lanzamiento</h3>
-                        <p>Desplegamos en producción, capacitamos a tu equipo y brindamos soporte continuo 24/7. Monitoreamos el rendimiento y optimizamos.</p>
-                    </div>
+        <div class="proceso-timeline">
+            <div class="proceso-scroll-wrapper">
+                <div class="timeline-steps">
+                <div class="timeline-step" data-delay="0">
+                    <div class="step-node">01</div>
+                    <h3>Diagnóstico</h3>
+                    <p>Analizamos tu empresa, procesos actuales y encontramos dónde la IA genera más valor. Identificamos oportunidades de automatización y optimización.</p>
                 </div>
+                <div class="timeline-step" data-delay="200">
+                    <div class="step-node">02</div>
+                    <h3>Estrategia IA</h3>
+                    <p>Diseñamos la solución técnica a medida, el plan de implementación y definimos los KPIs de éxito. Presentamos el roadmap completo.</p>
+                </div>
+                <div class="timeline-step" data-delay="400">
+                    <div class="step-node">03</div>
+                    <h3>Desarrollo</h3>
+                    <p>Construimos e integramos la solución con metodología ágil. Entregamos resultados funcionales cada semana para tu validación.</p>
+                </div>
+                <div class="timeline-step" data-delay="600">
+                    <div class="step-node">04</div>
+                    <h3>Lanzamiento</h3>
+                    <p>Desplegamos en producción, capacitamos a tu equipo y brindamos soporte continuo 24/7. Monitoreamos el rendimiento y optimizamos.</p>
+                </div>
+            </div>
             </div>
         </div>
     </section>
@@ -299,7 +275,7 @@
                 <span class="chip">Contacto</span>
                 <h2>¿Listo para transformar tu negocio?</h2>
                 <p>Cuéntanos sobre tu empresa y descubramos juntos cómo la IA puede hacer crecer tu negocio.</p>
-
+                
                 <div class="contacto-card-item">
                     <div class="contacto-icon-box">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2">
@@ -312,7 +288,7 @@
                         <a href="mailto:hola@growit.gt">hola@growit.gt</a>
                     </div>
                 </div>
-
+                
                 <div class="contacto-card-item">
                     <div class="contacto-icon-box">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2">
@@ -325,7 +301,7 @@
                         <span>El Salvador, Centroamérica</span>
                     </div>
                 </div>
-
+                
                 <div class="contacto-card-item">
                     <div class="contacto-icon-box">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--magenta)" stroke-width="2">
@@ -338,7 +314,7 @@
                         <span>Lun - Vie: 8:00 - 18:00</span>
                     </div>
                 </div>
-
+                
                 <div class="contacto-card-item">
                     <div class="contacto-icon-box">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2">
@@ -350,7 +326,7 @@
                         <span>+502 1234 5678</span>
                     </div>
                 </div>
-
+                
                 <div class="contacto-response-time">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
@@ -431,8 +407,5 @@
     <a href="https://wa.me/50212345678" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat en WhatsApp">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
-
-    <!-- Main JS -->
-    <script src="main.js?v=11"></script>
 </body>
 </html>
