@@ -1,411 +1,759 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- ============================================
-         METADATA & SEO
-         ============================================ -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grow IT — Inteligencia Artificial para empresas | Centroamérica</title>
-    <meta name="description" content="Grow IT transforma empresas con IA en Centroamérica. Desarrollo de software a medida, automatización de procesos y productos digitales inteligentes.">
-    <meta name="keywords" content="inteligencia artificial, IA, software a medida, automatización, machine learning, análisis de datos, aplicaciones móviles, Centroamérica">
-    <meta name="theme-color" content="#0c1022">
-    <link rel="canonical" href="https://growit.dev/">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grow IT — Inteligencia que escala tu negocio</title>
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Grow IT — Inteligencia Artificial para empresas | Centroamérica">
-    <meta property="og:description" content="Transformamos empresas con IA. Desarrollo de software a medida, automatización de procesos y productos digitales inteligentes en Centroamérica.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://growit.gt/">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Grow IT — Inteligencia Artificial para empresas | Centroamérica">
-    <meta name="twitter:description" content="Transformamos empresas con IA. Desarrollo de software a medida, automatización de procesos y productos digitales inteligentes.">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.90/build/spline-viewer.js"></script>
 
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    :root {
+      --bg:#04050a; --bg2:#080b14;
+      --border:rgba(255,255,255,0.07);
+      --border-h:rgba(255,255,255,0.16);
+      --accent:#00e5a0; --accent2:#0057ff; --accent3:#a855f7;
+      --text:#c8d4e8; --muted:#4a5a78; --muted2:#7a8ca8;
+      --heading:#ffffff;
+      --fh:'Syne',sans-serif; --fb:'DM Sans',sans-serif; --fm:'Space Mono',monospace;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{-webkit-font-smoothing:antialiased}
+    body{background:var(--bg);color:var(--text);font-family:var(--fb);overflow-x:hidden}
+    ::-webkit-scrollbar{width:3px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:rgba(0,229,160,0.2);border-radius:2px}
 
-    <!-- GSAP + ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    /* ── OVERLAYS ── */
+    .noise{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")}
+    .grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+      background-image:linear-gradient(rgba(0,229,160,0.014) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,160,0.014) 1px,transparent 1px);
+      background-size:80px 80px}
 
-    <!-- Preconnect -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    /* ── LIQUID GLASS ── */
+    .glass{
+      background:rgba(255,255,255,0.028);
+      backdrop-filter:blur(22px) saturate(1.4);
+      -webkit-backdrop-filter:blur(22px) saturate(1.4);
+      border:1px solid rgba(255,255,255,0.09);
+      position:relative;overflow:hidden}
+    .glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;
+      background:linear-gradient(145deg,rgba(255,255,255,0.26) 0%,rgba(255,255,255,0.05) 35%,rgba(255,255,255,0) 55%,rgba(255,255,255,0.05) 75%,rgba(255,255,255,0.20) 100%);
+      -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    .glass-strong{
+      background:rgba(255,255,255,0.055);
+      backdrop-filter:blur(48px) saturate(1.7);
+      -webkit-backdrop-filter:blur(48px) saturate(1.7);
+      border:1px solid rgba(255,255,255,0.11);
+      box-shadow:inset 0 3px 3px rgba(255,255,255,0.09),0 16px 48px rgba(0,0,0,0.45);
+      position:relative;overflow:hidden}
+    .glass-strong::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;
+      background:linear-gradient(160deg,rgba(255,255,255,0.42) 0%,rgba(255,255,255,0.07) 30%,rgba(255,255,255,0) 50%,rgba(255,255,255,0.07) 70%,rgba(255,255,255,0.36) 100%);
+      -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css?v=7">
+    .glass-nav{
+      background:rgba(255,255,255,0.04);
+      backdrop-filter:blur(50px) saturate(2);
+      -webkit-backdrop-filter:blur(50px) saturate(2);
+      border:1px solid rgba(255,255,255,0.1);
+      box-shadow:inset 0 4px 4px rgba(255,255,255,0.08),0 4px 20px rgba(0,0,0,0.4);
+      position:relative;overflow:hidden}
+    .glass-nav::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.38) 0%,rgba(255,255,255,0.04) 40%,rgba(255,255,255,0.04) 60%,rgba(255,255,255,0.30) 100%);
+      -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
 
-    <!-- Main JS -->
-    <script src="main.js?v=10" defer></script>
+    /* ── CONTAINER ── */
+    .wrap{max-width:1200px;margin:0 auto;padding:0 40px;position:relative;z-index:2}
+
+    /* ── LOGO ── */
+    .logo-mark{display:flex;align-items:center;gap:11px;text-decoration:none;user-select:none}
+    .logo-icon{
+      width:38px;height:38px;border-radius:11px;flex-shrink:0;
+      background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 24px rgba(0,229,160,0.28),inset 0 1px 0 rgba(255,255,255,0.3)}
+    .logo-icon svg{width:22px;height:22px}
+    .logo-text{display:flex;flex-direction:column;line-height:1}
+    .logo-grow{font-family:var(--fh);font-size:20px;font-weight:800;color:var(--heading);letter-spacing:-.8px}
+    .logo-it{font-family:var(--fm);font-size:8.5px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-top:2px}
+
+    /* ── NAV ── */
+    #nav{position:fixed;top:22px;left:50%;transform:translateX(-50%);z-index:200;
+      border-radius:18px;padding:9px 14px;opacity:0;width:fit-content}
+    .nav-inner{display:flex;align-items:center;gap:6px}
+    .nav-links{display:flex;list-style:none;gap:2px;margin:0 10px}
+    .nav-links a{color:rgba(255,255,255,0.55);text-decoration:none;font-size:13px;font-weight:500;
+      padding:6px 13px;border-radius:10px;transition:all .2s;font-family:var(--fb);letter-spacing:.1px}
+    .nav-links a:hover{color:var(--heading);background:rgba(255,255,255,0.07)}
+    .nav-btn{background:rgba(0,229,160,0.13);border:1px solid rgba(0,229,160,0.24);
+      color:var(--accent);padding:7px 18px;border-radius:11px;
+      font-size:13px;font-weight:600;text-decoration:none;font-family:var(--fb);
+      transition:all .25s;display:flex;align-items:center;gap:6px;letter-spacing:.1px}
+    .nav-btn:hover{background:rgba(0,229,160,0.2);box-shadow:0 0 22px rgba(0,229,160,0.22)}
+    .nav-btn svg{width:13px;height:13px}
+
+    /* ── LABEL ── */
+    .lbl{font-family:var(--fm);font-size:10px;letter-spacing:3px;text-transform:uppercase;
+      color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:18px}
+    .lbl::before{content:'';width:22px;height:1px;background:var(--accent);opacity:.7}
+
+    /* ── HERO PINNED ── */
+    #pin-wrap{height:500vh}
+    #hero{position:sticky;top:0;width:100%;height:100vh;overflow:hidden;
+      display:flex;align-items:center;justify-content:center}
+
+    /* ambient */
+    .amb{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
+    .amb-1{width:700px;height:700px;background:radial-gradient(circle,rgba(0,229,160,0.055) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)}
+    .amb-2{width:500px;height:500px;background:radial-gradient(circle,rgba(0,87,255,0.04) 0%,transparent 70%);top:25%;right:8%}
+    .amb-3{width:380px;height:380px;background:radial-gradient(circle,rgba(168,85,247,0.035) 0%,transparent 70%);bottom:18%;left:6%}
+
+    /* brain */
+    #brain{position:absolute;width:600px;height:600px;top:50%;left:50%;
+      transform:translate(-50%,-50%);z-index:3}
+    #brain spline-viewer{width:100%;height:100%;border-radius:50%;display:block}
+    .br{position:absolute;border-radius:50%;pointer-events:none;z-index:2}
+    .br1{inset:-14px;border:1px solid rgba(0,229,160,0.09);animation:rp 5s ease-in-out infinite}
+    .br2{inset:-36px;border:1px solid rgba(0,229,160,0.05);animation:rp 5s ease-in-out infinite .7s}
+    .br3{inset:-66px;border:1px solid rgba(0,87,255,0.04);animation:rp 5s ease-in-out infinite 1.4s}
+    @keyframes rp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.04)}}
+
+    /* hero text */
+    #htxt{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+      text-align:center;z-index:10;width:100%;pointer-events:none}
+    .h-eye{font-family:var(--fm);font-size:11px;letter-spacing:3.5px;text-transform:uppercase;
+      color:var(--accent);display:flex;align-items:center;justify-content:center;gap:10px;
+      margin-bottom:22px;opacity:0}
+    .h-eye::before,.h-eye::after{content:'';width:28px;height:1px;background:var(--accent);opacity:.5}
+    .h-h1{font-family:var(--fh);font-size:clamp(50px,7vw,94px);font-weight:800;
+      line-height:1.0;letter-spacing:-3px;color:var(--heading);opacity:0}
+    .h-h1 .ln{display:block}
+    .h-h1 .ca{color:var(--accent)}
+    .h-h1 .cd{color:var(--muted2);font-weight:300}
+    .h-sub{font-family:var(--fb);font-size:clamp(14px,1.3vw,17px);font-weight:300;
+      color:var(--muted2);line-height:1.8;max-width:520px;margin:22px auto 0;opacity:0}
+    .h-ctas{display:flex;align-items:center;justify-content:center;gap:13px;
+      margin-top:34px;opacity:0;flex-wrap:wrap}
+    .btp{background:rgba(0,229,160,0.11);border:1px solid rgba(0,229,160,0.28);
+      color:var(--accent);padding:13px 26px;border-radius:13px;
+      font-weight:700;font-size:14px;text-decoration:none;font-family:var(--fb);
+      transition:all .3s;display:inline-flex;align-items:center;gap:8px;
+      box-shadow:inset 0 2px 2px rgba(255,255,255,0.07)}
+    .btp:hover{background:rgba(0,229,160,0.18);box-shadow:0 0 28px rgba(0,229,160,0.22),inset 0 2px 2px rgba(255,255,255,0.1);transform:translateY(-2px)}
+    .bts{color:var(--muted2);font-family:var(--fb);font-size:14px;font-weight:500;
+      text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+      padding:13px 20px;border-radius:13px;border:1px solid var(--border);transition:all .25s}
+    .bts:hover{color:var(--heading);border-color:var(--border-h)}
+    .btp svg,.bts svg{width:15px;height:15px}
+
+    /* scroll hint */
+    #sh{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:10;
+      display:flex;flex-direction:column;align-items:center;gap:7px;
+      font-family:var(--fm);font-size:9px;letter-spacing:2px;
+      color:var(--muted);text-transform:uppercase;opacity:0}
+    .sl{width:1px;height:36px;background:linear-gradient(var(--accent),transparent);
+      animation:sa 2s ease-in-out infinite}
+    @keyframes sa{0%,100%{opacity:.2}50%{opacity:1}}
+
+    /* phase label */
+    #plbl{position:absolute;top:15%;left:50%;transform:translateX(-50%);
+      z-index:10;font-family:var(--fm);font-size:10px;letter-spacing:3px;
+      text-transform:uppercase;color:var(--accent);opacity:0;text-align:center;white-space:nowrap}
+
+    /* ── BUBBLES ── */
+    .bub{position:absolute;border-radius:22px;padding:20px 22px;z-index:8;opacity:0;pointer-events:none;width:218px}
+    .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:11px}
+    .bi svg{width:17px;height:17px;fill:none;stroke-linecap:round;stroke-width:2}
+    .bi-r{background:rgba(255,70,70,0.09);border:1px solid rgba(255,70,70,0.18)}
+    .bi-r svg{stroke:#ff6060}
+    .bi-g{background:rgba(0,229,160,0.07);border:1px solid rgba(0,229,160,0.18)}
+    .bi-g svg{stroke:var(--accent)}
+    .bi-b{background:rgba(0,87,255,0.07);border:1px solid rgba(0,87,255,0.18)}
+    .bi-b svg{stroke:var(--accent2)}
+    .bi-p{background:rgba(168,85,247,0.07);border:1px solid rgba(168,85,247,0.18)}
+    .bi-p svg{stroke:var(--accent3)}
+    .bt{font-family:var(--fh);font-size:13.5px;font-weight:700;color:var(--heading);margin-bottom:5px;letter-spacing:-.3px}
+    .bd{font-size:12px;color:var(--muted2);line-height:1.6;font-weight:300}
+    .btags{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+    .btag{font-size:10px;font-weight:600;padding:3px 8px;border-radius:100px;
+      background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--muted);letter-spacing:.3px}
+
+    /* positions */
+    #bp1{top:19%;left:6%} #bp2{bottom:21%;left:5%} #bp3{bottom:26%;right:6%}
+    #bs1{top:17%;left:5%} #bs2{top:48%;right:5%;transform:translateY(-50%)} #bs3{bottom:13%;left:50%;transform:translateX(-50%);width:240px}
+    #bw1{top:21%;right:6%} #bw2{bottom:23%;left:5%} #bw3{top:44%;left:50%;transform:translateX(-115px)}
+
+    /* ── ROBOT SECTION ── */
+    #robot-sec{position:relative;height:100vh;overflow:hidden;background:var(--bg);display:flex;align-items:flex-end;justify-content:center}
+    #rclip{position:absolute;bottom:0;left:0;right:0;height:62%;z-index:3;overflow:hidden}
+    #rstage{width:560px;height:560px;position:absolute;bottom:-60px;left:50%;transform:translateX(-50%)}
+    #rstage spline-viewer{width:100%;height:100%;display:block}
+    .rfade{position:absolute;top:0;left:0;right:0;height:55%;z-index:4;
+      background:linear-gradient(var(--bg),transparent);pointer-events:none}
+    .rcontent{position:relative;z-index:10;text-align:center;padding-bottom:120px;width:100%}
+    .rcontent .lbl{justify-content:center}
+    .rh2{font-family:var(--fh);font-size:clamp(36px,5vw,62px);font-weight:800;
+      letter-spacing:-2px;color:var(--heading);line-height:1.05;margin-bottom:18px}
+    .rh2 em{font-style:normal;color:var(--accent)}
+    .rsub{font-size:16px;color:var(--muted2);max-width:440px;margin:0 auto;font-weight:300;line-height:1.8}
+
+    /* ── MARQUEE ── */
+    .mwrap{position:relative;overflow:hidden;padding:20px 0;
+      border-top:1px solid var(--border);border-bottom:1px solid var(--border);z-index:2}
+    .mtrack{display:flex;width:max-content;animation:ms 30s linear infinite}
+    .mi{display:flex;align-items:center;gap:10px;padding:0 38px;
+      font-family:var(--fm);font-size:11px;letter-spacing:2px;text-transform:uppercase;
+      color:var(--muted);white-space:nowrap}
+    .md{width:4px;height:4px;border-radius:50%;background:var(--accent);flex-shrink:0}
+    @keyframes ms{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .mfl,.mfr{position:absolute;top:0;bottom:0;width:90px;z-index:3;pointer-events:none}
+    .mfl{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+    .mfr{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
+
+    /* ── SERVICES SECTION ── */
+    .sec{padding:120px 0;position:relative;z-index:2}
+    .sec-hd{margin-bottom:68px}
+    .sec-hd h2{font-family:var(--fh);font-size:clamp(36px,4.5vw,58px);font-weight:800;
+      letter-spacing:-2px;color:var(--heading);line-height:1.05;margin-bottom:14px}
+    .sec-hd .sub{font-size:16px;color:var(--muted2);font-weight:300;line-height:1.8;max-width:460px}
+    .sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .sc{border-radius:24px;padding:36px;display:flex;flex-direction:column;
+      transition:all .4s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden}
+    .sc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity .4s}
+    .sc:hover{transform:translateY(-7px);box-shadow:0 24px 72px rgba(0,0,0,.5),0 0 60px rgba(0,229,160,0.05)}
+    .sc:hover::after{opacity:1}
+    .sn{font-family:var(--fm);font-size:10px;letter-spacing:2px;color:var(--muted);
+      text-transform:uppercase;margin-bottom:22px}
+    .sico{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:22px}
+    .sico svg{width:26px;height:26px;fill:none;stroke-linecap:round}
+    .ig{background:rgba(0,229,160,0.07);border:1px solid rgba(0,229,160,0.15);color:var(--accent)}
+    .ib{background:rgba(0,87,255,0.07);border:1px solid rgba(0,87,255,0.15);color:var(--accent2)}
+    .ip{background:rgba(168,85,247,0.07);border:1px solid rgba(168,85,247,0.15);color:var(--accent3)}
+    .sc h3{font-family:var(--fh);font-size:21px;font-weight:700;color:var(--heading);
+      letter-spacing:-.5px;margin-bottom:13px;line-height:1.2}
+    .sc p{font-size:14px;color:var(--muted2);line-height:1.75;flex:1;font-weight:300}
+    .stags{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px}
+    .stag{font-size:11px;font-weight:600;letter-spacing:.4px;padding:4px 10px;
+      border-radius:100px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--muted)}
+
+    /* ── WHY ── */
+    .why-i{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .why-h2{font-family:var(--fh);font-size:clamp(34px,4.5vw,54px);font-weight:800;
+      letter-spacing:-2px;color:var(--heading);line-height:1.05;margin-bottom:14px}
+    .di{display:flex;gap:20px;align-items:flex-start;padding:26px 0;border-bottom:1px solid var(--border)}
+    .di:last-child{border-bottom:none}
+    .dn{font-family:var(--fh);font-size:38px;font-weight:800;color:rgba(255,255,255,0.05);
+      letter-spacing:-2px;line-height:1;flex-shrink:0;width:52px;transition:color .3s}
+    .di:hover .dn{color:rgba(0,229,160,0.28)}
+    .di strong{display:block;font-family:var(--fh);font-size:16px;font-weight:700;
+      color:var(--heading);margin-bottom:5px;letter-spacing:-.3px}
+    .di span{font-size:14px;color:var(--muted2);line-height:1.6}
+    .sgrd{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .stc{border-radius:18px;padding:28px 22px;text-align:center;transition:all .3s}
+    .stc:hover{transform:translateY(-4px);box-shadow:0 12px 48px rgba(0,229,160,0.05)}
+    .stc.w{grid-column:span 2}
+    .stn{font-family:var(--fh);font-size:46px;font-weight:800;color:var(--accent);
+      letter-spacing:-2.5px;line-height:1;margin-bottom:8px}
+    .stl{font-size:13px;color:var(--muted2)}
+
+    /* ── TESTIMONIALS ── */
+    .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .tc{border-radius:22px;padding:30px;display:flex;flex-direction:column;transition:all .35s}
+    .tc:hover{transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+    .tt{font-size:14px;color:var(--text);line-height:1.75;flex:1;font-weight:300;font-style:italic;padding-top:4px}
+    .tt::before{content:'"';font-family:var(--fh);font-size:44px;font-weight:800;
+      color:var(--accent);opacity:.35;line-height:.8;display:block;margin-bottom:8px;font-style:normal}
+    .tau{display:flex;align-items:center;gap:12px;margin-top:20px;padding-top:18px;border-top:1px solid var(--border)}
+    .tav{width:38px;height:38px;border-radius:50%;
+      background:linear-gradient(135deg,var(--accent2),var(--accent));
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--fh);font-size:12px;font-weight:700;color:#04050a;flex-shrink:0}
+    .tnm{font-size:13px;font-weight:600;color:var(--heading)}
+    .trl{font-size:11px;color:var(--muted);margin-top:1px}
+    .tst{color:#f59e0b;font-size:11px;margin-top:2px}
+
+    /* ── CTA ── */
+    .cta-s{padding:150px 0;position:relative;z-index:2;border-top:1px solid var(--border);text-align:center;overflow:hidden}
+    .cta-bg{position:absolute;width:800px;height:500px;border-radius:50%;
+      background:radial-gradient(ellipse,rgba(0,229,160,0.05) 0%,transparent 70%);
+      top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+    .cta-i{position:relative;z-index:2;max-width:700px;margin:0 auto}
+    .cta-i h2{font-family:var(--fh);font-size:clamp(38px,5.5vw,66px);font-weight:800;
+      letter-spacing:-2.5px;color:var(--heading);line-height:1.0;margin-bottom:18px}
+    .cta-i h2 em{font-style:normal;color:var(--accent);display:block}
+    .cta-i p{font-size:17px;color:var(--muted2);font-weight:300;line-height:1.8;
+      margin-bottom:42px;max-width:460px;margin-left:auto;margin-right:auto}
+    .cta-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+    .bcm{background:var(--accent);color:#04050a;padding:15px 32px;border-radius:13px;
+      font-weight:800;font-size:14px;text-decoration:none;font-family:var(--fh);
+      transition:all .3s;display:inline-flex;align-items:center;gap:8px;letter-spacing:-.1px}
+    .bcm:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(0,229,160,.3)}
+    .bcs{background:transparent;color:var(--muted2);padding:15px 26px;border-radius:13px;
+      font-size:14px;font-weight:500;text-decoration:none;font-family:var(--fb);
+      border:1px solid var(--border);transition:all .25s;display:inline-flex;align-items:center;gap:6px}
+    .bcs:hover{color:var(--heading);border-color:var(--border-h)}
+    .cnote{margin-top:22px;font-size:12px;color:var(--muted);
+      display:flex;align-items:center;justify-content:center;gap:6px}
+    .cnote svg{width:13px;height:13px;stroke:var(--accent);fill:none}
+
+    /* ── FOOTER ── */
+    footer{border-top:1px solid var(--border);padding:46px 0;position:relative;z-index:2}
+    .fi{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:22px}
+    .fc{font-size:13px;color:var(--muted);margin-top:6px}
+    .fl{display:flex;gap:26px}
+    .fl a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s}
+    .fl a:hover{color:var(--accent)}
+
+    /* ── REVEAL ── */
+    .rv{opacity:0;transform:translateY(36px)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:960px){
+      .wrap{padding:0 22px}
+      #brain{width:400px;height:400px}
+      .sgrid,.why-i,.tgrid{grid-template-columns:1fr}
+      .nav-links{display:none}
+      .bub{display:none}
+      #bs1,#bs2{display:block;width:175px}
+      .h-h1{font-size:clamp(38px,10vw,58px);letter-spacing:-2px}
+    }
+  </style>
 </head>
 <body>
-<!-- ============================================
-          SCROLL PROGRESS
-          ============================================ -->
-    <div id="scroll-progress"></div>
 
-    <!-- ============================================
-          NEURAL CANVAS 3D BACKGROUND
-          ============================================ -->
-    <canvas id="neural-canvas"></canvas>
+<div class="noise"></div>
+<div class="grid"></div>
 
-    <!-- Floating Particles -->
-    <div class="floating-particle"></div>
-    <div class="floating-particle"></div>
-    <div class="floating-particle"></div>
-    <div class="floating-particle"></div>
-    <div class="floating-particle"></div>
-    <div class="floating-particle"></div>
-    <div class="floating-particle"></div>
-    <div class="floating-particle"></div>
-    <div class="floating-particle"></div>
-    <div class="floating-particle"></div>
-
-
-
-    <!-- ============================================
-         NAVBAR
-         ============================================ -->
-    <header id="navbar">
-        <nav class="nav-container">
-            <a href="#inicio" class="logo">
-                <span class="logo-dot"></span>Grow<span>IT</span>
-            </a>
-            <div class="nav-menu">
-                <a href="#inicio" class="nav-link active">Inicio</a>
-                <a href="#nosotros" class="nav-link">Nosotros</a>
-                <a href="#servicios" class="nav-link">Servicios</a>
-                <a href="#proceso" class="nav-link">Proceso</a>
-                <a href="#contacto" class="nav-link">Contacto</a>
-                <button class="btn-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Hablemos →</button>
-                <button class="lang-toggle" onclick="toggleLanguage()" id="langToggle">EN</button>
-            </div>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Mobile Overlay -->
-    <div class="mobile-overlay" id="mobileOverlay">
-        <a href="#inicio" onclick="closeMobileMenu()">Inicio</a>
-        <a href="#nosotros" onclick="closeMobileMenu()">Nosotros</a>
-        <a href="#servicios" onclick="closeMobileMenu()">Servicios</a>
-        <a href="#proceso" onclick="closeMobileMenu()">Proceso</a>
-        <a href="#contacto" onclick="closeMobileMenu()">Contacto</a>
-        <a href="#contacto" class="btn-cta-mobile" onclick="closeMobileMenu()">Hablemos →</a>
-        <button class="lang-toggle-mobile" onclick="toggleLanguage(); closeMobileMenu()">EN</button>
-    </div>
-    <!-- ============================================
-         HERO SECTION
-         ============================================ -->
-    <section id="inicio">
-        <div class="hero-content">
-            <div class="hero-content-inner">
-                <h1 class="hero-title" id="heroTitle">
-                    <span class="line">Hacemos crecer</span>
-                    <span class="line">tu negocio</span>
-                    <span class="line"><span class="gradient">con IA.</span></span>
-                </h1>
-                <p class="hero-subtitle" id="heroSubtitle">
-                    Automatizamos procesos, modernizamos sistemas y construimos productos digitales inteligentes para empresas que quieren liderar su industria.
-                </p>
-                <div class="hero-buttons" id="heroButtons">
-                    <a href="#servicios" class="btn-primary">Ver servicios →</a>
-                    <a href="#nosotros" class="btn-secondary">Conocer más</a>
-                </div>
-            </div>
-        </div>
-        <div class="hero-scroll" id="heroScroll">
-            <span>SCROLL</span>
-            <div class="scroll-line"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-         STATS BAND
-         ============================================ -->
-    <section id="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number" data-target="50">0</div>
-                <div class="stat-label">Proyectos entregados</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-target="98">0</div>
-                <div class="stat-label">Satisfacción del cliente</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-target="15">0</div>
-                <div class="stat-label">Tecnologías de IA</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-target="3" data-suffix="×">0</div>
-                <div class="stat-label">ROI promedio</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-         NOSOTROS SECTION
-         ============================================ -->
-    <section id="nosotros" class="section-reveal">
-        <div class="ambient-glow glow-cyan" style="top:-10%;left:-5%;"></div>
-        <div class="ambient-glow glow-violet" style="bottom:-10%;right:-5%;"></div>
-        <div class="nosotros-content" style="text-align:center; max-width:800px; margin:0 auto; padding:0 24px;">
-            <h2 class="reveal">Somos <span class="gradient">Grow IT</span></h2>
-            <p class="reveal" style="font-size:clamp(18px,1.5vw,22px); color:#cbd5e1; margin-top:24px;">
-                Acercamos la inteligencia artificial a empresas de Centroamérica. Entendemos tu contexto, tus desafíos y construimos soluciones que funcionan.
-            </p>
-        </div>
-    </section>
-
-    <!-- ============================================
-         SERVICIOS SECTION
-         ============================================ -->
-    <section id="servicios" class="section-reveal">
-        <div class="ambient-glow glow-magenta" style="top:20%;right:-10%;"></div>
-        <div class="ambient-glow glow-cyan" style="bottom:10%;left:-8%;"></div>
-        <div class="section-header">
-            <h2 class="reveal" data-delay="100">Todo lo que necesitas para transformar tu empresa con IA</h2>
-            <p class="reveal" data-delay="200">Implementamos soluciones de inteligencia artificial que generan valor medible desde el primer día.</p>
-        </div>
-        <div class="servicios-grid">
-            <div class="servicio-card" data-color="cyan">
-                <span class="servicio-number">01</span>
-                <div class="servicio-icon">
-                    <svg viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round">
-                        <rect x="8" y="8" width="32" height="32" rx="4"/>
-                        <path d="M16 24h16M24 16v16"/>
-                    </svg>
-                </div>
-                <h3>Páginas Web Inteligentes</h3>
-                <p>Diseños inmersivos con IA integrada que se adaptan al comportamiento del usuario y maximizan conversiones.</p>
-            </div>
-            <div class="servicio-card" data-color="violet">
-                <span class="servicio-number">02</span>
-                <div class="servicio-icon">
-                    <svg viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round">
-                        <polygon points="24 4 44 16 44 32 24 44 4 32 4 16"/>
-                        <path d="M24 4v40M4 16h40M44 16L24 44M44 32L4 16"/>
-                    </svg>
-                </div>
-                <h3>Software a la Medida</h3>
-                <p>Aplicaciones empresariales potenciadas con IA que automatizan decisiones y optimizan operaciones críticas.</p>
-            </div>
-            <div class="servicio-card" data-color="magenta">
-                <span class="servicio-number">03</span>
-                <div class="servicio-icon">
-                    <svg viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round">
-                        <circle cx="24" cy="24" r="6"/>
-                        <path d="M24 4v8M24 36v8M4 24h8M36 24h8"/>
-                        <path d="M10 10l5 5M33 33l5 5M10 38l5-5M33 15l5-5"/>
-                        <path d="M18 18h4v4h-4zM26 26h4v4h-4z"/>
-                    </svg>
-                </div>
-                <h3>Automatización con Agentes IA</h3>
-                <p>Agentes inteligentes que operan 24/7, manejan consultas, procesan datos y toman decisiones autónomas.</p>
-            </div>
-            <div class="servicio-card" data-color="cyan">
-                <span class="servicio-number">04</span>
-                <div class="servicio-icon">
-                    <svg viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round">
-                        <path d="M8 40V20l8-12 8 12 8-12 8 12v20"/>
-                        <path d="M18 40v-12h12v12"/>
-                    </svg>
-                </div>
-                <h3>Análisis de Datos con IA</h3>
-                <p>Extraemos insights de tus datos con machine learning, prediciendo tendencias y oportunidades de negocio.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-         PROCESO SECTION
-         ============================================ -->
-    <section id="proceso">
-        <div class="section-header">
-            <h2 class="reveal" data-delay="100">Del problema a la solución en 4 pasos</h2>
-            <p class="reveal" data-delay="200">Transformamos tu negocio con inteligencia artificial en semanas, no en meses.</p>
-        </div>
-        <div class="proceso-timeline">
-            <div class="proceso-scroll-wrapper">
-                <div class="timeline-steps">
-                <div class="timeline-step" data-delay="0">
-                    <div class="step-node">01</div>
-                    <h3>Diagnóstico</h3>
-                    <p>Analizamos tu empresa, procesos actuales y encontramos dónde la IA genera más valor. Identificamos oportunidades de automatización y optimización.</p>
-                </div>
-                <div class="timeline-step" data-delay="200">
-                    <div class="step-node">02</div>
-                    <h3>Estrategia IA</h3>
-                    <p>Diseñamos la solución técnica a medida, el plan de implementación y definimos los KPIs de éxito. Presentamos el roadmap completo.</p>
-                </div>
-                <div class="timeline-step" data-delay="400">
-                    <div class="step-node">03</div>
-                    <h3>Desarrollo</h3>
-                    <p>Construimos e integramos la solución con metodología ágil. Entregamos resultados funcionales cada semana para tu validación.</p>
-                </div>
-                <div class="timeline-step" data-delay="600">
-                    <div class="step-node">04</div>
-                    <h3>Lanzamiento</h3>
-                    <p>Desplegamos en producción, capacitamos a tu equipo y brindamos soporte continuo 24/7. Monitoreamos el rendimiento y optimizamos.</p>
-                </div>
-            </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-         CONTACTO SECTION
-         ============================================ -->
-    <section id="contacto" class="section-reveal">
-        <div class="ambient-glow glow-violet" style="top:0;left:20%;"></div>
-        <div class="ambient-glow glow-magenta" style="bottom:0;right:15%;"></div>
-        <div class="contacto-wrapper">
-            <div class="contacto-info-box">
-                <span class="chip">Contacto</span>
-                <h2>¿Listo para transformar tu negocio?</h2>
-                <p>Cuéntanos sobre tu empresa y descubramos juntos cómo la IA puede hacer crecer tu negocio.</p>
-                
-                <div class="contacto-card-item">
-                    <div class="contacto-icon-box">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <polyline points="22,6 12,13 2,6"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <span class="contacto-label">Email</span>
-                        <a href="mailto:hola@growit.gt">hola@growit.gt</a>
-                    </div>
-                </div>
-                
-                <div class="contacto-card-item">
-                    <div class="contacto-icon-box">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <span class="contacto-label">Ubicación</span>
-                        <span>El Salvador, Centroamérica</span>
-                    </div>
-                </div>
-                
-                <div class="contacto-card-item">
-                    <div class="contacto-icon-box">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--magenta)" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <polyline points="12 6 12 12 16 14"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <span class="contacto-label">Horario</span>
-                        <span>Lun - Vie: 8:00 - 18:00</span>
-                    </div>
-                </div>
-                
-                <div class="contacto-card-item">
-                    <div class="contacto-icon-box">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <span class="contacto-label">Teléfono</span>
-                        <span>+502 1234 5678</span>
-                    </div>
-                </div>
-                
-                <div class="contacto-response-time">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                        <polyline points="22 4 12 14.01 9 11.01"/>
-                    </svg>
-                    Respondemos en menos de 24 horas hábiles
-                </div>
-            </div>
-            <div class="contacto-form-box">
-                <form id="contactForm">
-                    <h3>Hablemos de tu proyecto</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="tu@email.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="mensaje">Mensaje</label>
-                            <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos sobre tu proyecto..."></textarea>
-                        </div>
-                    </div>
-                    <button type="submit" class="form-submit">
-                        <span class="btn-text">Enviar mensaje →</span>
-                        <div class="spinner"></div>
-                    </button>
-                    <div class="form-success" id="formSuccess">
-                        ✓ Mensaje enviado. Te contactaremos pronto.
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-         FOOTER
-         ============================================ -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <a href="#inicio" class="logo">
-                    <span class="logo-dot"></span>Grow<span>IT</span>
-                </a>
-                <p class="footer-tagline">IA que hace crecer tu negocio</p>
-            </div>
-            <div class="footer-column">
-                <h4>Servicios</h4>
-                <ul>
-                    <li><a href="#servicios">Páginas Web Inteligentes</a></li>
-                    <li><a href="#servicios">Software a la Medida</a></li>
-                    <li><a href="#servicios">Automatización con IA</a></li>
-                    <li><a href="#servicios">Análisis de Datos</a></li>
-                    <li><a href="#">Migraciones Cloud</a></li>
-                    <li><a href="#">Renovación Digital</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Empresa</h4>
-                <ul>
-                    <li><a href="#nosotros">Nosotros</a></li>
-                    <li><a href="#proceso">Proceso</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                    <li><a href="#">Casos de Éxito</a></li>
-                    <li><a href="#">Blog</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-divider"></div>
-        <div class="footer-bottom">
-            <span>© 2025 Grow IT. Hecho en Centroamérica con IA.</span>
-        </div>
-    </footer>
-
-    <!-- WhatsApp floating CTA -->
-    <a href="https://wa.me/50212345678" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat en WhatsApp">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<!-- ═══ NAV ════════════════════════════════════════════ -->
+<nav id="nav" class="glass-nav">
+  <div class="nav-inner">
+    <a href="#" class="logo-mark">
+      <div class="logo-icon">
+        <!-- brain/circuit icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(4,5,10,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9.5 2C7 2 5 4 5 6.5c0 .9.3 1.8.7 2.5C4.3 9.8 3 11.3 3 13c0 2.2 1.8 4 4 4h.5v2.5a1 1 0 002 0V17h5v2.5a1 1 0 002 0V17h.5c2.2 0 4-1.8 4-4 0-1.7-1.3-3.2-2.7-3.9.4-.7.7-1.5.7-2.5C19 4 17 2 14.5 2c-1.2 0-2.2.5-3 1.2C10.7 2.5 10.1 2 9.5 2z"/>
+          <line x1="9" y1="10" x2="15" y2="10" stroke-width="1.5"/>
+          <line x1="12" y1="7" x2="12" y2="13" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-grow">GrowIT</span>
+        <span class="logo-it">Intelligence · Technology</span>
+      </div>
     </a>
+
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#testimonios">Casos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+
+    <a href="#contacto" class="nav-btn">
+      Hablemos
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══ HERO PIN ════════════════════════════════════════ -->
+<div id="pin-wrap">
+  <section id="hero">
+
+    <div class="amb amb-1"></div>
+    <div class="amb amb-2"></div>
+    <div class="amb amb-3"></div>
+
+    <!-- Brain Spline -->
+    <div id="brain">
+      <div class="br br1"></div>
+      <div class="br br2"></div>
+      <div class="br br3"></div>
+      <spline-viewer url="https://prod.spline.design/j9cUN1xK0nZPIc1B/scene.splinecode"></spline-viewer>
+    </div>
+
+    <!-- Phase label -->
+    <div id="plbl">El Problema</div>
+
+    <!-- Hero content -->
+    <div id="htxt">
+      <div class="h-eye" id="eye">Hay una nueva inteligencia potenciando los negocios</div>
+      <h1 class="h-h1" id="hh1">
+        <span class="ln">Tu negocio</span>
+        <span class="ln">tiene potencial.</span>
+        <span class="ln"><span class="ca">La IA</span> <span class="cd">lo</span></span>
+        <span class="ln">desbloquea.</span>
+      </h1>
+      <p class="h-sub" id="hsub">En Grow IT construimos la tecnología que tu empresa necesita para escalar: webs inteligentes en 3D, automatización real y sistemas modernos que trabajan por vos.</p>
+      <div class="h-ctas" id="hcta">
+        <a href="#contacto" class="btp">
+          Quiero crecer
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#servicios" class="bts">
+          Ver servicios
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div id="sh"><div class="sl"></div>Scroll</div>
+
+    <!-- ── Problem bubbles ── -->
+    <div id="bp1" class="bub glass-strong">
+      <div class="bi bi-r"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <div class="bt">Sistemas que fallan</div>
+      <div class="bd">Infraestructura obsoleta que frena tu operación y genera costos ocultos.</div>
+    </div>
+    <div id="bp2" class="bub glass-strong">
+      <div class="bi bi-r"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="bt">Procesos manuales</div>
+      <div class="bd">Tareas repetitivas que roban tiempo cuando la IA las puede hacer sola.</div>
+    </div>
+    <div id="bp3" class="bub glass-strong">
+      <div class="bi bi-r"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="3 9 21 9"/><polyline points="9 21 9 9"/></svg></div>
+      <div class="bt">Web que no convierte</div>
+      <div class="bd">Tu presencia digital no refleja tu nivel ni atrae los clientes que merecés.</div>
+    </div>
+
+    <!-- ── Services bubbles ── -->
+    <div id="bs1" class="bub glass-strong">
+      <div class="bi bi-g"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+      <div class="bt">Webs 3D Inteligentes</div>
+      <div class="bd">Experiencias inmersivas que convierten visitantes en clientes.</div>
+      <div class="btags"><span class="btag">Spline 3D</span><span class="btag">IA</span><span class="btag">GSAP</span></div>
+    </div>
+    <div id="bs2" class="bub glass-strong">
+      <div class="bi bi-b"><svg viewBox="0 0 24 24" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+      <div class="bt">Migración Legacy</div>
+      <div class="bd">Modernizamos tu stack sin parar tu operación.</div>
+      <div class="btags"><span class="btag">Red Hat</span><span class="btag">DevOps</span><span class="btag">Cloud</span></div>
+    </div>
+    <div id="bs3" class="bub glass-strong" style="left:auto;right:auto;transform:none;bottom:13%;left:50%;margin-left:-120px;width:240px">
+      <div class="bi bi-p"><svg viewBox="0 0 24 24" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/><path d="M15.54 8.46a5 5 0 010 7.07M8.46 8.46a5 5 0 000 7.07"/></svg></div>
+      <div class="bt">Automatización IA + Red Hat</div>
+      <div class="bd">Agentes 24/7 que trabajan por vos.</div>
+      <div class="btags"><span class="btag">Ansible</span><span class="btag">OpenShift</span><span class="btag">n8n</span></div>
+    </div>
+
+    <!-- ── Why bubbles ── -->
+    <div id="bw1" class="bub glass-strong">
+      <div class="bi bi-g"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="bt">Sin jerga técnica</div>
+      <div class="bd">Te explicamos todo en lenguaje humano. Siempre.</div>
+    </div>
+    <div id="bw2" class="bub glass-strong">
+      <div class="bi bi-b"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+      <div class="bt">A tu medida</div>
+      <div class="bd">Nada genérico. Diseñado para tu negocio exactamente.</div>
+    </div>
+    <div id="bw3" class="bub glass-strong" style="top:44%;left:auto;transform:none;left:calc(50% - 115px)">
+      <div class="bi bi-p"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <div class="bt">Partner de largo plazo</div>
+      <div class="bd">No desaparecemos. Crecemos juntos.</div>
+    </div>
+
+  </section>
+</div>
+
+<!-- ═══ ROBOT ══════════════════════════════════════════ -->
+<section id="robot-sec">
+  <div class="rfade"></div>
+  <div id="rclip">
+    <div id="rstage">
+      <spline-viewer url="https://prod.spline.design/xXpm780ZGSONn48Y/scene.splinecode"></spline-viewer>
+    </div>
+  </div>
+  <div class="rcontent wrap">
+    <div class="lbl rv">Automatización</div>
+    <h2 class="rh2 rv">Tu nuevo empleado<br><em>trabaja 24/7.</em></h2>
+    <p class="rsub rv">Agentes de IA que no descansan, no se equivocan en tareas repetitivas y escalan sin límite. Bienvenido a la automatización real.</p>
+  </div>
+</section>
+
+<!-- ═══ MARQUEE ════════════════════════════════════════ -->
+<div class="mwrap">
+  <div class="mfl"></div><div class="mfr"></div>
+  <div class="mtrack">
+    <div class="mi"><span class="md"></span>Webs 3D IA</div>
+    <div class="mi"><span class="md"></span>Migración Legacy</div>
+    <div class="mi"><span class="md"></span>Red Hat Automation</div>
+    <div class="mi"><span class="md"></span>Agentes IA</div>
+    <div class="mi"><span class="md"></span>OpenShift</div>
+    <div class="mi"><span class="md"></span>Spline 3D</div>
+    <div class="mi"><span class="md"></span>Cloud Migration</div>
+    <div class="mi"><span class="md"></span>DevOps</div>
+    <div class="mi"><span class="md"></span>Ansible</div>
+    <div class="mi"><span class="md"></span>GSAP Cinematic</div>
+    <div class="mi"><span class="md"></span>Costa Rica 🌎</div>
+    <div class="mi"><span class="md"></span>Webs 3D IA</div>
+    <div class="mi"><span class="md"></span>Migración Legacy</div>
+    <div class="mi"><span class="md"></span>Red Hat Automation</div>
+    <div class="mi"><span class="md"></span>Agentes IA</div>
+    <div class="mi"><span class="md"></span>OpenShift</div>
+    <div class="mi"><span class="md"></span>Spline 3D</div>
+    <div class="mi"><span class="md"></span>Cloud Migration</div>
+    <div class="mi"><span class="md"></span>DevOps</div>
+    <div class="mi"><span class="md"></span>Ansible</div>
+    <div class="mi"><span class="md"></span>GSAP Cinematic</div>
+    <div class="mi"><span class="md"></span>Costa Rica 🌎</div>
+  </div>
+</div>
+
+<!-- ═══ SERVICES ═════════════════════════════════════════ -->
+<section class="sec" id="servicios" style="border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="sec-hd rv">
+      <div class="lbl">Servicios</div>
+      <h2>Lo que construimos<br>para vos</h2>
+      <p class="sub">Tres especialidades, un objetivo: que tu negocio crezca más rápido de lo que imaginás.</p>
+    </div>
+    <div class="sgrid">
+      <div class="sc glass rv">
+        <div class="sn">01 — Web</div>
+        <div class="sico ig"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+        <h3>Webs Inteligentes en 3D</h3>
+        <p>Dejá atrás las páginas estáticas. Creamos experiencias web inmersivas con IA y animaciones 3D que convierten visitantes en clientes. Tu marca, en otra dimensión.</p>
+        <div class="stags"><span class="stag">Spline 3D</span><span class="stag">IA Generativa</span><span class="stag">UX/UI</span><span class="stag">GSAP</span></div>
+      </div>
+      <div class="sc glass rv">
+        <div class="sn">02 — Infra</div>
+        <div class="sico ib"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+        <h3>Migración de Sistemas Legacy</h3>
+        <p>Tus sistemas antiguos te cuestan dinero todos los días. Los modernizamos con stacks actuales sin perder tu data ni parar tu operación. Transición limpia, sin dramas.</p>
+        <div class="stags"><span class="stag">Red Hat</span><span class="stag">Cloud Migration</span><span class="stag">DevOps</span><span class="stag">Zero Downtime</span></div>
+      </div>
+      <div class="sc glass rv">
+        <div class="sn">03 — Automatización</div>
+        <div class="sico ip"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/><path d="M15.54 8.46a5 5 0 010 7.07M8.46 8.46a5 5 0 000 7.07"/></svg></div>
+        <h3>Automatización con IA y Red Hat</h3>
+        <p>Agentes de IA que trabajan 24/7, flujos automatizados con Red Hat y procesos que se ejecutan solos. Tu equipo enfocado en lo que importa, la tecnología hace el resto.</p>
+        <div class="stags"><span class="stag">Agentes IA</span><span class="stag">Ansible</span><span class="stag">OpenShift</span><span class="stag">n8n</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY ═══════════════════════════════════════════════ -->
+<section class="sec" id="nosotros" style="border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="why-i">
+      <div>
+        <div class="lbl rv">Por qué Grow IT</div>
+        <h2 class="why-h2 rv">No somos<br>una agencia más.</h2>
+        <p style="font-size:15px;color:var(--muted2);font-weight:300;line-height:1.8;max-width:380px;margin-bottom:38px" class="rv">Somos el equipo tecnológico que tu empresa necesitaba desde hace tiempo.</p>
+        <div>
+          <div class="di rv"><div class="dn">01</div><div><strong>Tecnología de punta, sin jerga técnica</strong><span>Te explicamos todo en lenguaje humano. Entendés exactamente qué estás contratando y por qué.</span></div></div>
+          <div class="di rv"><div class="dn">02</div><div><strong>Soluciones hechas a tu medida</strong><span>Nada genérico. Cada proyecto se diseña desde cero para tu operación y tus metas.</span></div></div>
+          <div class="di rv"><div class="dn">03</div><div><strong>Partner de largo plazo</strong><span>No desaparecemos después de entregar. Crecemos con vos y estamos cuando nos necesitás.</span></div></div>
+        </div>
+      </div>
+      <div class="sgrd">
+        <div class="stc w glass rv"><div class="stn">3X</div><div class="stl">más rápido que desarrollo tradicional</div></div>
+        <div class="stc glass rv"><div class="stn">24/7</div><div class="stl">Agentes IA activos</div></div>
+        <div class="stc glass rv"><div class="stn">0</div><div class="stl">Tiempo de parada en migración</div></div>
+        <div class="stc w glass rv" style="padding:22px"><p style="font-family:var(--fh);font-size:15px;font-style:italic;color:var(--muted2);line-height:1.6">"La tecnología que tu empresa necesitaba desde hace tiempo."</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ════════════════════════════════════ -->
+<section class="sec" id="testimonios" style="border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="sec-hd rv" style="text-align:center">
+      <div class="lbl" style="justify-content:center">Casos de éxito</div>
+      <h2>Negocios que ya<br>crecieron con nosotros</h2>
+      <p class="sub" style="margin:0 auto">Resultados reales de empresas que dieron el salto.</p>
+    </div>
+    <div class="tgrid">
+      <div class="tc glass rv">
+        <p class="tt">Pasamos de un sistema que caía todos los lunes a una infraestructura que no para. La migración fue limpia y sin pérdida de datos.</p>
+        <div class="tau"><div class="tav">CM</div><div><div class="tnm">Carlos M.</div><div class="trl">CEO · Distribuidora Centroamérica</div><div class="tst">★★★★★</div></div></div>
+      </div>
+      <div class="tc glass rv">
+        <p class="tt">Nuestra nueva web 3D triplicó el tiempo que los usuarios pasan en el sitio. Los clientes dicen que se ve como una empresa de Silicon Valley.</p>
+        <div class="tau"><div class="tav" style="background:linear-gradient(135deg,#a050ff,#0057ff)">AL</div><div><div class="tnm">Andrea L.</div><div class="trl">Directora Marketing · FinTech CR</div><div class="tst">★★★★★</div></div></div>
+      </div>
+      <div class="tc glass rv">
+        <p class="tt">Los agentes de IA manejan el 70% de nuestras consultas automáticamente. Mi equipo finalmente puede enfocarse en ventas y no en responder correos.</p>
+        <div class="tau"><div class="tav" style="background:linear-gradient(135deg,#00e5a0,#0057ff)">RV</div><div><div class="tnm">Roberto V.</div><div class="trl">COO · Logística Express</div><div class="tst">★★★★★</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA FINAL ══════════════════════════════════════════ -->
+<section class="cta-s" id="contacto">
+  <div class="cta-bg"></div>
+  <div class="wrap">
+    <div class="cta-i rv">
+      <div class="lbl" style="justify-content:center;margin-bottom:22px">Empezemos</div>
+      <h2>El mejor momento fue ayer.<em>El segundo mejor es hoy.</em></h2>
+      <p>Hablemos 15 minutos. Sin compromiso. Te mostramos exactamente qué puede hacer la IA por tu empresa.</p>
+      <div class="cta-btns">
+        <a href="mailto:contacto@growit.cr" class="bcm">
+          Agendá tu llamada gratis
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#servicios" class="bcs">Ver servicios</a>
+      </div>
+      <p class="cnote">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Sin costo · Sin compromiso · Respuesta en menos de 24 horas
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <div class="wrap fi">
+    <div>
+      <a href="#" class="logo-mark">
+        <div class="logo-icon" style="width:30px;height:30px;border-radius:8px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(4,5,10,0.9)" stroke-width="2" stroke-linecap="round" width="16" height="16">
+            <path d="M9.5 2C7 2 5 4 5 6.5c0 .9.3 1.8.7 2.5C4.3 9.8 3 11.3 3 13c0 2.2 1.8 4 4 4h.5v2.5a1 1 0 002 0V17h5v2.5a1 1 0 002 0V17h.5c2.2 0 4-1.8 4-4 0-1.7-1.3-3.2-2.7-3.9.4-.7.7-1.5.7-2.5C19 4 17 2 14.5 2c-1.2 0-2.2.5-3 1.2C10.7 2.5 10.1 2 9.5 2z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-grow" style="font-size:16px">GrowIT</span>
+          <span class="logo-it">Intelligence · Technology</span>
+        </div>
+      </a>
+      <p class="fc" style="margin-top:8px">Crecimiento + Tecnología · Hecho en Costa Rica para el mundo 🌎</p>
+    </div>
+    <div class="fl">
+      <a href="mailto:contacto@growit.cr">contacto@growit.cr</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ GSAP ════════════════════════════════════════════ -->
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ── Nav ── */
+  gsap.to('#nav', { opacity:1, duration:.9, delay:.5, ease:'power2.out' });
+
+  /* ── Hero entrance ── */
+  gsap.timeline({ delay:.4 })
+    .to('#eye',  { opacity:1, y:0, duration:.7, ease:'power3.out' })
+    .to('#hh1',  { opacity:1, y:0, duration:.9, ease:'power3.out' }, '-=.35')
+    .to('#hsub', { opacity:1, y:0, duration:.7, ease:'power3.out' }, '-=.4')
+    .to('#hcta', { opacity:1, y:0, duration:.7, ease:'power3.out' }, '-=.35')
+    .to('#sh',   { opacity:1, duration:.5 }, '-=.2');
+
+  /* brain entrance */
+  gsap.from('#brain', { scale:.65, opacity:0, duration:1.6, delay:.25, ease:'power3.out' });
+
+  /* brain float */
+  gsap.to('#brain', { y:-16, duration:4.5, ease:'sine.inOut', yoyo:true, repeat:-1 });
+
+  /* ─────────────────────────────────────────────────
+     CINEMATIC SCROLL — 4 phases over 500vh
+  ───────────────────────────────────────────────── */
+  const pt = gsap.timeline({
+    scrollTrigger:{
+      trigger:'#pin-wrap', start:'top top',
+      end:'bottom bottom', scrub:1.4
+    }
+  });
+
+  /* Phase 0→1 (0–20%): hero out */
+  pt.to(['#hh1','#hsub','#hcta','#eye','#sh'],
+    { opacity:0, y:-50, duration:3, stagger:.08, ease:'power2.in' }, 0)
+    .to('#brain', { scale:1.12, duration:5 }, 0)
+
+  /* Phase 1 (20–25%): label "El Problema" */
+    .to('#plbl', { opacity:1, duration:2 }, 2.5)
+
+  /* Phase 1→2 (25–45%): problem bubbles in */
+    .fromTo('#bp1', { opacity:0, x:-90, y:20 }, { opacity:1, x:0, y:0, duration:3.5, ease:'power3.out' }, 3.5)
+    .fromTo('#bp2', { opacity:0, x:-70, y:50 }, { opacity:1, x:0, y:0, duration:3.5, ease:'power3.out' }, 4.2)
+    .fromTo('#bp3', { opacity:0, x:90,  y:20 }, { opacity:1, x:0, y:0, duration:3.5, ease:'power3.out' }, 4.8)
+
+  /* Phase 2→3 (45–50%): problem out */
+    .to('#plbl', { opacity:0, duration:1.5 }, 8.5)
+    .to(['#bp1','#bp2','#bp3'], { opacity:0, scale:.82, duration:2.5, ease:'power2.in', stagger:.12 }, 8.5)
+
+  /* Phase 3 label: Servicios */
+    .set('#plbl', { innerText:'Servicios' }, 11)
+    .to('#plbl', { opacity:1, duration:1.5 }, 11)
+
+  /* Phase 3 (50–70%): service bubbles in */
+    .fromTo('#bs1', { opacity:0, x:-90, y:-30 }, { opacity:1, x:0, y:0, duration:3.5, ease:'power3.out' }, 11.5)
+    .fromTo('#bs2', { opacity:0, x:90,  y: 40 }, { opacity:1, x:0, y:0, duration:3.5, ease:'power3.out' }, 12.2)
+    .fromTo('#bs3', { opacity:0, y:90 },           { opacity:1, y:0, duration:3.5, ease:'power3.out' }, 12.8)
+
+  /* Phase 3→4 (70–75%): services out */
+    .to('#plbl', { opacity:0, duration:1.5 }, 16.5)
+    .to(['#bs1','#bs2','#bs3'], { opacity:0, scale:.82, duration:2.5, ease:'power2.in', stagger:.12 }, 16.5)
+
+  /* Phase 4 label: Por qué nosotros */
+    .set('#plbl', { innerText:'Por qué nosotros' }, 19)
+    .to('#plbl', { opacity:1, duration:1.5 }, 19)
+
+  /* Phase 4 (75–92%): why bubbles in */
+    .fromTo('#bw1', { opacity:0, x:90, y:-30 }, { opacity:1, x:0, y:0, duration:3.5, ease:'power3.out' }, 19.5)
+    .fromTo('#bw2', { opacity:0, x:-80, y:30 }, { opacity:1, x:0, y:0, duration:3.5, ease:'power3.out' }, 20.2)
+    .fromTo('#bw3', { opacity:0, scale:.7 },      { opacity:1, scale:1, duration:3.5, ease:'power3.out' }, 20.8)
+
+  /* brain slight tilt during why phase */
+    .to('#brain', { rotation:6, duration:6, ease:'sine.inOut' }, 17)
+
+  /* Exit (92–100%): all out, brain shrinks */
+    .to('#plbl', { opacity:0, duration:2 }, 24)
+    .to(['#bw1','#bw2','#bw3'], { opacity:0, scale:.82, duration:2.5, ease:'power2.in', stagger:.12 }, 24)
+    .to('#brain', { scale:.55, opacity:0, duration:4, ease:'power2.in' }, 24);
+
+  /* ── Robot parallax ── */
+  gsap.fromTo('#rclip',
+    { yPercent:12, opacity:0 },
+    { yPercent:0, opacity:1, duration:1,
+      scrollTrigger:{ trigger:'#robot-sec', start:'top 80%', end:'top 20%', scrub:true }
+    }
+  );
+
+  /* ── Section reveals ── */
+  gsap.utils.toArray('.rv').forEach(el => {
+    gsap.to(el, {
+      scrollTrigger:{ trigger:el, start:'top 88%', toggleActions:'play none none none' },
+      opacity:1, y:0, duration:.85, ease:'power3.out'
+    });
+  });
+
+  /* ── Stat counters ── */
+  document.querySelectorAll('.stn').forEach(el => {
+    const raw = el.textContent.trim();
+    const num = parseInt(raw);
+    if (!isNaN(num) && num > 0) {
+      const suffix = raw.replace(/[0-9]/g,'');
+      gsap.fromTo(el,
+        { textContent:0 },
+        { textContent:num, duration:2.2, ease:'power2.out',
+          snap:{ textContent:1 },
+          onUpdate(){ el.textContent = Math.round(+el.textContent) + suffix },
+          scrollTrigger:{ trigger:el, start:'top 86%', once:true }
+        }
+      );
+    }
+  });
+</script>
 </body>
 </html>
